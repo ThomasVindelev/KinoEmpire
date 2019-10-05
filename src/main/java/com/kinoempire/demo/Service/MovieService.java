@@ -39,7 +39,7 @@ public class MovieService {
                 movie.setTitle(resultSet.getString("title"));
                 movie.setAge_limit(resultSet.getInt("age_limit"));
                 movie.setLength(resultSet.getInt("length"));
-                genre.setGenre("genre");
+                genre.setName(resultSet.getString("genre"));
                 movie.setGenre(genre);
                 movies.add(movie);
             }
@@ -60,10 +60,27 @@ public class MovieService {
                 movie.setTitle(resultSet.getString("title"));
                 movie.setAge_limit(resultSet.getInt("age_limit"));
                 movie.setLength(resultSet.getInt("length"));
-                genre.setGenre("genre");
+                genre.setName(resultSet.getString("genre"));
                 movie.setGenre(genre);
             }
             return movie;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Genre> getGenres() {
+        resultSet = movieRepository.getGenres();
+        List<Genre> genres = new ArrayList<>();
+        try {
+            if(resultSet.next()) {
+                Genre genre = new Genre();
+                genre.setId(resultSet.getInt("id"));
+                genre.setName(resultSet.getString("genre"));
+                genres.add(genre);
+            }
+            return genres;
         } catch (SQLException e) {
             e.printStackTrace();
         }

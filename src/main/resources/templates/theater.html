@@ -3,6 +3,17 @@
 <div th:replace="fragments/header :: header">...</div>
 <body>
 
+<form th:action="@{/addMovie}" method="POST" th:object="${Movie}">
+    <input type="text" placeholder="Title" name="title">
+    <input type="number" placeholder="Length (in minutes)" name="length">
+    <input type="number" placeholder="Age limit" name="age_limit">
+    <select name="genre">
+        <option selected disabled hidden>Choose a genre...</option>
+        <option th:each="genre : ${genreList}" th:value="${genre.id}" th:text="${genre.name}"></option>
+    </select>
+    <button type="submit">Add movie</button>
+</form>
+
 </body>
 <footer th:replace="fragments/footer :: footer">...</footer>
 </html>

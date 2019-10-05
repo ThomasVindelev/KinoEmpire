@@ -15,11 +15,17 @@ public class MovieController {
         this.movieService = movieService;
     }
 
+    @GetMapping("/theater")
+    public String theater(Model model) {
+        model.addAttribute("genreList", movieService.getGenres());
+        return "theater";
+    }
+
     @PostMapping("/addMovie")
     public String addMovie(@ModelAttribute Movie movie, Model model) {
         movieService.addMovie(movie);
-        model.addAttribute("succes", true);
-        return "index";
+        model.addAttribute("success", true);
+        return "theater";
     }
 
     @DeleteMapping("/deleteMovie")

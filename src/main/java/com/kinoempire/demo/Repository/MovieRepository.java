@@ -65,4 +65,14 @@ public class MovieRepository extends Database {
     }
 
 
+    public ResultSet getGenres() {
+        query = "SELECT * FROM genre";
+        try {
+            preparedStatement = getConnection().prepareStatement(query);
+            return preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
