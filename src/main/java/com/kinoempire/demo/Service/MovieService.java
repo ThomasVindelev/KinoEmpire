@@ -1,18 +1,72 @@
 package com.kinoempire.demo.Service;
 
+import com.kinoempire.demo.Model.Genre;
+import com.kinoempire.demo.Model.Movie;
 import com.kinoempire.demo.Repository.MovieRepository;
 import org.springframework.stereotype.Service;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MovieService {
 
     private final MovieRepository movieRepository;
+    private ResultSet resultSet;
 
     public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
-    public void addMovie() {
-        movieRepository.addMovie();
+    public void addMovie(Movie movie) {
+        movieRepository.addMovie(movie);
+    }
+
+    public void deleteMovie(int id) {
+        movieRepository.deleteMovie(id);
+    }
+
+    public List<Movie> getAllMovies() {
+        List<Movie> movies = new ArrayList<>();
+        resultSet = movieRepository.getAllMovies();
+        try {
+            while(resultSet.next()) {
+                Movie movie = new Movie();
+                Genre genre = new Genre();
+                movie.setId(resultSet.getInt("id"));
+                movie.setTitle(resultSet.getString("title"));
+                movie.setAge_limit(resultSet.getInt("age_limit"));
+                movie.setLength(resultSet.getInt("length"));
+                genre.setGenre("genre");
+                movie.setGenre(genre);
+                movies.add(movie);
+            }
+            return movies;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Movie getMovieById(int id) {
+        resultSet = movieRepository.getMovieById(id);
+        Movie movie = new Movie();
+        Genre genre = new Genre();
+        try {
+            if(resultSet.next()) {
+                movie.setId(resultSet.getInt("id"));
+                movie.setTitle(resultSet.getString("title"));
+                movie.setAge_limit(resultSet.getInt("age_limit"));
+                movie.setLength(resultSet.getInt("length"));
+                genre.setGenre("genre");
+                movie.setGenre(genre);
+            }
+            return movie;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

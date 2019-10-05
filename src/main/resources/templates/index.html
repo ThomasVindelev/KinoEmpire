@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:replace="fragments/header :: header">...</div>
+<body>
+
+<form th:action="@{/theater}" method="get">
+    <button type="submit">Opret film</button>
+</form>
+
+</body>
+<div th:replace="fragments/footer :: footer">...</div>
+</html>
