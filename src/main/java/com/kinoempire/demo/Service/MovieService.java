@@ -20,12 +20,12 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public void addMovie(Movie movie) {
-        movieRepository.addMovie(movie);
+    public boolean addMovie(Movie movie) {
+        return movieRepository.addMovie(movie);
     }
 
-    public void deleteMovie(int id) {
-        movieRepository.deleteMovie(id);
+    public boolean deleteMovie(int id) {
+        return movieRepository.deleteMovie(id);
     }
 
     public List<Movie> getAllMovies() {
@@ -74,7 +74,7 @@ public class MovieService {
         resultSet = movieRepository.getGenres();
         List<Genre> genres = new ArrayList<>();
         try {
-            if(resultSet.next()) {
+            while (resultSet.next()) {
                 Genre genre = new Genre();
                 genre.setId(resultSet.getInt("id"));
                 genre.setName(resultSet.getString("genre"));

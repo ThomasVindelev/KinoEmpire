@@ -13,7 +13,7 @@ public class MovieRepository extends Database {
     private PreparedStatement preparedStatement;
     private String query;
 
-    public void addMovie(Movie movie) {
+    public boolean addMovie(Movie movie) {
         query = "INSERT INTO movie (title, length, age_limit, fk_genre) VALUES (?,?,?,?)";
         try {
             preparedStatement = getConnection().prepareStatement(query);
@@ -21,26 +21,28 @@ public class MovieRepository extends Database {
             preparedStatement.setInt(2, movie.getLength());
             preparedStatement.setInt(3, movie.getAge_limit());
             preparedStatement.setInt(4, movie.getGenreId());
-            preparedStatement.execute();
+            return preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
-    public void deleteMovie(int id) {
+    public boolean deleteMovie(int id) {
         query = "DELETE FROM movie WHERE id = ?";
         try {
             preparedStatement = getConnection().prepareStatement(query);
             preparedStatement.setInt(1, id);
-            preparedStatement.execute();
+            return preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     public ResultSet getAllMovies() {
-        query = "SELECT title, length, age_limit, genre" +
-                "INNER JOIN genre ON fk_genre = genre.id";
+        query = "SELECT movie.id, title, length, age_limit, genre FROM movie " +
+                "INNER JOIN genre ON movie.fk_genre = genre.id";
 
         try {
             preparedStatement = getConnection().prepareStatement(query);

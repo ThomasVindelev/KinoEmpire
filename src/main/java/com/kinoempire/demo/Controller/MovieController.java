@@ -2,11 +2,13 @@ package com.kinoempire.demo.Controller;
 
 import com.kinoempire.demo.Model.Movie;
 import com.kinoempire.demo.Service.MovieService;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
 public class MovieController {
 
     private final MovieService movieService;
@@ -15,29 +17,28 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @GetMapping("/theater")
-    public String theater(Model model) {
-        model.addAttribute("genreList", movieService.getGenres());
-        return "theater";
+    @GetMapping("/getGenres")
+    public Object getGenres() {
+        return movieService.getGenres();
     }
 
     @PostMapping("/addMovie")
-    public String addMovie(@ModelAttribute Movie movie, Model model) {
-        movieService.addMovie(movie);
-        model.addAttribute("success", true);
-        return "theater";
+    public Object addMovie(@RequestBody Movie movie) {
+        Map<String, Boolean> message = new HashMap<>();
+        message.put("Error", movieService.addMovie(movie));
+        return message;
     }
 
-    @DeleteMapping("/deleteMovie")
-    public String deleteMovie(@PathVariable("id") int id, Model model) {
-        movieService.deleteMovie(id);
-        model.addAttribute("deleted", true);
-        return "index";
+    @DeleteMapping("/deleteMovie/{id}")
+    public Object deleteMovie(@PathVariable("id") int id) {
+        Map<String, Boolean> message = new HashMap<>();
+        message.put("Error", movieService.deleteMovie(id));
+        return message;
     }
 
     @GetMapping("/movies")
-    public String getMovies() {
-        return "";
+    public Object getMovies() {
+        return movieService.getAllMovies();
     }
 
 }
