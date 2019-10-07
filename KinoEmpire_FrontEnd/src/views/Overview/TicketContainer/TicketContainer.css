@@ -1,0 +1,65 @@
+.TicketContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 40px 20px;
+}
+
+.TicketSelecter {
+    width: 31%;
+}
+
+.seats {
+    width: 69%;
+    display: flex;
+}
+
+.buttonTockle {
+    display: flex;
+    margin-top: 20px;
+}
+
+.ticketValue {
+    margin: 12px;
+}
+
+.totalContainer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+}
+
+.seatInfo {
+    margin-top: 20px;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 70px;
+    max-width: 290px;
+}
+
+::-webkit-scrollbar {
+    background: #24292d
+}
+
+::-webkit-scrollbar-button {
+    background: #24292d
+}
+
+::-webkit-scrollbar-track-piece {
+    background: #24292d
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(75, 74, 74, 0.466)
+}
+
+.seat {}
+
+.row {
+    margin: 0 7.7px 20px 0;
+    min-width: 15px;
+    min-height: 15px;
+    max-width: 15px;
+    max-height: 15px;
+}
