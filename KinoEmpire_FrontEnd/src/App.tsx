@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, RouteComponentProps } from "react-router-dom";
 import TopNav from "./Component/TopNav";
 import Overview from "./views/Overview/Overview";
 import Container from "./Component/Container";
@@ -14,7 +14,7 @@ class App extends React.Component {
         <BrowserRouter>
           <Switch>
             <Container>
-              <Route path="/overview" component={Overview} />
+              <Route path="/overview/:id" component={Overview} />
               <Route path="/manage" component={ManageMovie} />
             </Container>
           </Switch>

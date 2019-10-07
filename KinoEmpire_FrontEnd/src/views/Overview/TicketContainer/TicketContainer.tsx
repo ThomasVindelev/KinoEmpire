@@ -10,10 +10,14 @@ interface ticketState {
   tickets: number;
   totalAmount: number;
   allSelected: any[];
-  databaseSelected: any[];
 }
 
-export default class TicketContainer extends Component<{}, ticketState> {
+interface ticketProps {
+  selected: any[];
+}
+
+export default class TicketContainer extends Component<ticketProps, ticketState> {
+  
   constructor(props: any) {
     super(props);
     this.state = {
@@ -48,7 +52,6 @@ export default class TicketContainer extends Component<{}, ticketState> {
       tickets: 0,
       totalAmount: 0,
       allSelected: [],
-      databaseSelected: [{seat: 1, row: 3}, {seat: 19, row: 8}],
       ticketPrice: 115
     };
   }
@@ -135,6 +138,7 @@ export default class TicketContainer extends Component<{}, ticketState> {
           </Card>
         </div>
         <div className="seats">
+          
           {this.state.seat.map((seat, index) => {
             return (
               <div className="seat" key={index}>
@@ -143,7 +147,7 @@ export default class TicketContainer extends Component<{}, ticketState> {
                     this.state.allSelected.filter(
                       temp => temp.seat === seat && temp.row === row
                     ).length > 0
-                      ? "#3368FF" : this.state.databaseSelected.filter(temp => temp.seat === seat && temp.row === row).length > 0 ? "#bd2130" : "#28a745";
+                      ? "#3368FF" : this.props.selected.filter(temp => temp.seat === seat && temp.row === row).length > 0 ? "#bd2130" : "#28a745";
                   return (
                     <div
                       className="row"
@@ -155,7 +159,7 @@ export default class TicketContainer extends Component<{}, ticketState> {
                           if (
                             newSelected.filter(
                               temp => temp.seat === seat && temp.row === row
-                            ).length === 0 && this.state.databaseSelected.filter(temp => temp.seat === seat && temp.row === row).length === 0
+                            ).length === 0 && this.props.selected.filter(temp => temp.seat === seat && temp.row === row).length === 0
                           ) {
                             newSelected.push({ seat, row });
                             this.setState({ allSelected: newSelected });

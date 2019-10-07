@@ -2,30 +2,42 @@ import React, { Component } from "react";
 import MovieBox from "./MovieBox/MovieBox";
 import TicketContainer from "./TicketContainer/TicketContainer";
 import Spinner from "react-bootstrap/Spinner";
-
-interface overviewProps {}
+import { RouteComponentProps } from "react-router-dom";
 
 interface overviewState {
   isLoaded: boolean;
+  databaseSelected: any[];
 }
 
-export default class Overview extends Component<overviewProps, overviewState> {
-  constructor(props: overviewProps) {
+interface RouteInfo {
+  id: string;
+}
+
+interface ComponentProps extends RouteComponentProps<RouteInfo> {
+
+}
+
+export default class Overview extends Component<ComponentProps, overviewState> {
+  constructor(props: ComponentProps) {
     super(props);
     this.state = {
-      isLoaded: false
+      isLoaded: false,
+      databaseSelected: []
     };
   }
 
-  private load = () => {
-      return new Promise((resolve, reject) => {
-        setTimeout(resolve, 1000);
-      })
-  }
 
   componentDidMount() {
-      this.load()
-      .then(res => this.setState({ isLoaded: true }))
+   this.getSeats();
+  }
+
+  private getSeats = () => {
+    fetch(`http://localhost:5000/getSeats/${this.props.match.params.id}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ databaseSelected : res.seating, isLoaded: true })
+      })
+      .catch(err => console.log(err)) 
   }
 
   render() {
@@ -33,7 +45,7 @@ export default class Overview extends Component<overviewProps, overviewState> {
       <div>
         {this.state.isLoaded ? (
           <div>
-            <MovieBox title={"Gooseboy"} /> <TicketContainer />
+            <MovieBox title={"Gooseboy"} /> <TicketContainer selected={this.state.databaseSelected} />
           </div>
         ) : (
           <Spinner
