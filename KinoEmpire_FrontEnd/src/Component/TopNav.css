@@ -1,0 +1,25 @@
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search {
+    background: #343a40;
+    color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-radius: 0%;
+}
+
+.search:focus {
+    background: #343a40;
+    color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #f8f8f8;
+    border-radius: 0%;
+    outline: none;
+}

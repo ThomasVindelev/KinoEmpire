@@ -43,7 +43,6 @@ public class MovieRepository extends Database {
     public ResultSet getAllMovies() {
         query = "SELECT movie.id, title, length, age_limit, genre FROM movie " +
                 "INNER JOIN genre ON movie.fk_genre = genre.id";
-
         try {
             preparedStatement = getConnection().prepareStatement(query);
             return preparedStatement.executeQuery();

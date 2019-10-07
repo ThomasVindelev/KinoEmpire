@@ -1,0 +1,45 @@
+.MovieBox {
+    border: 1px solid #343a40;
+    max-height: 30%;
+    position: relative;
+    z-index: 1;
+}
+
+.MovieBox .bg {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url("https://www.nfbio.dk/sites/default/files/styles/background_image_desktop/public/movies/gooseboy_plakat.jpg?itok=6glQgPS4");
+    opacity: .2;
+    width: 100%;
+    height: 100%;
+}
+
+img {
+    opacity: 1 !important;
+    position: relative;
+    margin: 20px;
+    width: 200px;
+}
+
+.MoviePic {
+    display: flex;
+}
+
+.MovieText {
+    color: white;
+    margin: 20px 5px;
+}
+
+.MovieTextTime {
+    line-height: 2;
+}
+
+.MovieTextInfo {
+    margin-top: 10px;
+    line-height: 1;
+    font-size: 15px;
+}
