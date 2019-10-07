@@ -24,7 +24,7 @@ public class SeatingService {
             ResultSet resultSet = seatingRepository.getSeatsByViewing(id);
             while (resultSet.next()) {
                 Seat seat = new Seat();
-                seat.setColumn(resultSet.getInt("seat"));
+                seat.setSeat(resultSet.getInt("seat"));
                 seat.setRow(resultSet.getInt("row"));
                 viewing.setSeating(seat);
             }

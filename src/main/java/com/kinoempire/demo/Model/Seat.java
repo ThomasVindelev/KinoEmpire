@@ -3,14 +3,14 @@ package com.kinoempire.demo.Model;
 public class Seat {
 
     private int row;
-    private int column;
+    private int seat;
 
     public Seat() {
     }
 
-    public Seat(int row, int column) {
+    public Seat(int row, int seat) {
         this.row = row;
-        this.column = column;
+        this.seat = seat;
     }
 
     public int getRow() {
@@ -21,11 +21,11 @@ public class Seat {
         this.row = row;
     }
 
-    public int getColumn() {
-        return column;
+    public int getSeat() {
+        return seat;
     }
 
-    public void setColumn(int column) {
-        this.column = column;
+    public void setSeat(int seat) {
+        this.seat = seat;
     }
 }
