@@ -15,10 +15,9 @@ public class SeatingController {
         this.seatingService = seatingService;
     }
 
-    @GetMapping("/getSeats")
+    @GetMapping("/getSeats/{id}")
     public Object seats(@PathVariable("id") int id) {
-        Viewing viewing = seatingService.getSeatsByViewing(id);
-        return viewing;
+        return seatingService.getSeatsByViewing(id);
     }
 
 }
