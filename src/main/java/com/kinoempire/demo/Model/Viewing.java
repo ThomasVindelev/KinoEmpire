@@ -1,27 +1,20 @@
 package com.kinoempire.demo.Model;
 
+import java.util.List;
+
 public class Viewing {
 
-    private int seat;
-    private int row;
+    private List<Seat> seating;
 
     public Viewing() {
 
     }
 
-    public int getSeat() {
-        return seat;
+    public List<Seat> getSeating() {
+        return seating;
     }
 
-    public void setSeat(int seat) {
-        this.seat = seat;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
+    public void setSeating(Seat seat) {
+        seating.add(seat);
     }
 }
