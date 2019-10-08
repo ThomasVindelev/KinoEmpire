@@ -2,26 +2,25 @@ package com.kinoempire.demo.Service;
 
 import com.kinoempire.demo.Model.Seat;
 import com.kinoempire.demo.Model.Viewing;
-import com.kinoempire.demo.Repository.SeatingRepository;
+import com.kinoempire.demo.Repository.ViewingRepository;
 import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 @Service
-public class SeatingService {
+public class ViewingService {
 
-    private SeatingRepository seatingRepository;
+    private ViewingRepository viewingRepository;
 
-    public SeatingService(SeatingRepository seatingRepository) {
-        this.seatingRepository = seatingRepository;
+    public ViewingService(ViewingRepository viewingRepository) {
+        this.viewingRepository = viewingRepository;
     }
 
     public Viewing getSeatsByViewing(int id) {
         Viewing viewing = new Viewing();
         try {
-            ResultSet resultSet = seatingRepository.getSeatsByViewing(id);
+            ResultSet resultSet = viewingRepository.getSeatsByViewing(id);
             while (resultSet.next()) {
                 Seat seat = new Seat();
                 seat.setSeat(resultSet.getInt("seat"));
