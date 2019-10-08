@@ -21,7 +21,6 @@ public class MovieRepository extends Database {
             preparedStatement.setString(2, movie.getDescription());
             preparedStatement.setInt(3, movie.getLength());
             preparedStatement.setInt(4, movie.getAge_limit());
-            preparedStatement.setInt(5, movie.getGenreId());
             return preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,7 +35,6 @@ public class MovieRepository extends Database {
             preparedStatement.setString(1, movie.getTitle());
             preparedStatement.setInt(2, movie.getLength());
             preparedStatement.setInt(3, movie.getAge_limit());
-            preparedStatement.setInt(4, movie.getGenreId());
             preparedStatement.setInt(5, id);
             return preparedStatement.execute();
         } catch (SQLException e) {
