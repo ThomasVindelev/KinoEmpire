@@ -29,6 +29,14 @@ public class MovieController {
         return message;
     }
 
+    @PostMapping("/updateMovie/{id}")
+    public Object updateMovie(@RequestBody Movie movie, @PathVariable("id") int id) {
+        Map<String, Boolean> message = new HashMap<>();
+        System.out.println(movie.getTitle());
+        message.put("Error", movieService.updateMovie(movie, id));
+        return message;
+    }
+
     @DeleteMapping("/deleteMovie/{id}")
     public Object deleteMovie(@PathVariable("id") int id) {
         Map<String, Boolean> message = new HashMap<>();

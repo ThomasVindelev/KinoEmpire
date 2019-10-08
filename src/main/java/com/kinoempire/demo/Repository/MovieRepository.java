@@ -28,6 +28,22 @@ public class MovieRepository extends Database {
         return true;
     }
 
+    public boolean updateMovie(Movie movie, int id) {
+        query = "UPDATE movie SET title = ?, length = ?, description = ?, age_limit = ?, fk_genre = ? WHERE id = ?";
+        try {
+            preparedStatement = getConnection().prepareStatement(query);
+            preparedStatement.setString(1, movie.getTitle());
+            preparedStatement.setInt(2, movie.getLength());
+            preparedStatement.setInt(3, movie.getAge_limit());
+            preparedStatement.setInt(4, movie.getGenreId());
+            preparedStatement.setInt(5, id);
+            return preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     public boolean deleteMovie(int id) {
         query = "DELETE FROM movie WHERE id = ?";
         try {
