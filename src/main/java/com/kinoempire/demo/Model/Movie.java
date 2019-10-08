@@ -4,6 +4,7 @@ public class Movie {
 
     private int id;
     private String title;
+    private String description;
     private int length;
     private int age_limit;
     private int genreId;
@@ -12,9 +13,10 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(int id, String title, int length, int age_limit, int genreId) {
+    public Movie(int id, String title, String description, int length, int age_limit, int genreId) {
         this.id = id;
         this.title = title;
+        this.description = description;
         this.length = length;
         this.age_limit = age_limit;
         this.genreId = genreId;
@@ -34,6 +36,14 @@ public class Movie {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getLength() {

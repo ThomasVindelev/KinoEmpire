@@ -3,7 +3,6 @@ package com.kinoempire.demo.Controller;
 import com.kinoempire.demo.Model.Movie;
 import com.kinoempire.demo.Service.MovieService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +23,6 @@ public class MovieController {
     @PostMapping("/addMovie")
     public Object addMovie(@RequestBody Movie movie) {
         Map<String, Boolean> message = new HashMap<>();
-        System.out.println(movie.getTitle());
         message.put("Error", movieService.addMovie(movie));
         return message;
     }
