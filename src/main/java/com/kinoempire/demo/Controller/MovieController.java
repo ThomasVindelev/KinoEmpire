@@ -20,6 +20,7 @@ public class MovieController {
         return movieService.getGenres();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/addMovie")
     public Object addMovie(@RequestBody Movie movie) {
         Map<String, Boolean> message = new HashMap<>();
@@ -35,6 +36,7 @@ public class MovieController {
         return message;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteMovie/{id}")
     public Object deleteMovie(@PathVariable("id") int id) {
         Map<String, Boolean> message = new HashMap<>();

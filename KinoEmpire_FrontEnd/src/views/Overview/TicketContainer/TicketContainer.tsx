@@ -138,7 +138,6 @@ export default class TicketContainer extends Component<ticketProps, ticketState>
           </Card>
         </div>
         <div className="seats">
-          
           {this.state.seat.map((seat, index) => {
             return (
               <div className="seat" key={index}>
