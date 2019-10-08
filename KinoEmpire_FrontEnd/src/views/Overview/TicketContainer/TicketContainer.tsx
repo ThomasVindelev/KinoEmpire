@@ -15,9 +15,7 @@ interface ticketState {
 interface ticketProps {
   selected: any[];
   id: string;
-  movie: undefined,
-  theater: undefined,
-  date: string;
+  theater: undefined;
 }
 
 export default class TicketContainer extends Component<ticketProps, ticketState> {

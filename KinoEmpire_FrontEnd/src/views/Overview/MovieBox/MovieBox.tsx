@@ -2,7 +2,18 @@ import React, { Component } from "react";
 import "./MovieBox.css";
 
 interface MovieBoxProps {
+  movie: Movie;
+  date: string;
+}
+
+ interface Movie {
   title: string;
+  description?: string;
+  length: string;
+  age_limit: string;
+  genre: {
+    name: string;
+  }
 }
 
 export default class MovieBox extends Component<MovieBoxProps> {
@@ -17,16 +28,16 @@ export default class MovieBox extends Component<MovieBoxProps> {
               alt="moviepic"
             />
             <div className="MovieText">
-              <h1>{this.props.title}</h1>
+              <h1>{this.props.movie.title}</h1>
               <h6 className="MovieTextTime">
                 Theater 1
                 <br />
-                Søn, 6. okt 2019, 14:00
+                {this.props.date}
               </h6>
               <span className="MovieTextInfo">
-                1 time 27 minutter Forventet 
-                <br/>sluttidspunkt: 15:47 
-                <br/>Tilladt for alle
+              {this.props.movie.length} minutter forventet 
+                <br/>Beskrivelse: {this.props.movie.description}
+                <br/>Aldersgrænse: {this.props.movie.age_limit}
               </span>
             </div>
           </div>

@@ -38,7 +38,6 @@ public class ViewingService {
         Movie movie = new Movie();
         Genre genre = new Genre();
         Theater theater = new Theater();
-        Seat seat = new Seat();
         try {
             ResultSet resultSet = viewingRepository.getViewingById(id);
             while (resultSet.next()) {
@@ -50,12 +49,9 @@ public class ViewingService {
                 theater.setRows(resultSet.getInt("rows"));
                 theater.setSeats(resultSet.getInt("seats"));
                 viewing.setDate(resultSet.getDate("time"));
-                seat.setRow(resultSet.getInt("seating.row"));
-                seat.setSeat(resultSet.getInt("seating.seat"));
                 movie.setGenre(genre);
                 viewing.setMovie(movie);
                 viewing.setTheater(theater);
-                viewing.setSeating(seat);
             }
         } catch (SQLException e) {
             e.printStackTrace();

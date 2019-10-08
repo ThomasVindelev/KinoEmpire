@@ -7,9 +7,19 @@ import { RouteComponentProps } from "react-router-dom";
 interface overviewState {
   isLoaded: boolean;
   seatsSelected: any[];
-  movie: undefined;
+  movie: any;
   theater: undefined;
   date: string;
+}
+
+interface Movie {
+  title: string;
+  description?: string;
+  length: string;
+  age_limit: string;
+  genre: {
+    name: string;
+  }
 }
 
 interface RouteInfo {
@@ -41,11 +51,16 @@ export default class Overview extends Component<ComponentProps, overviewState> {
       .then(res => res.json())
       .then(res => {
         this.setState({ 
-          seatsSelected : res.seating, 
           movie : res.movie,
           theater: res.theater,
-          date: res.date,
-          isLoaded: true })
+          date: res.date })
+      })
+      .then(() => {
+        fetch(`http://localhost:5000/getSeats/${this.props.match.params.id}`)
+        .then(res => res.json())
+        .then(res => this.setState({ 
+          seatsSelected : res.seating,
+          isLoaded: true }))
       })
       .catch(err => console.log(err)) 
   }
@@ -53,15 +68,12 @@ export default class Overview extends Component<ComponentProps, overviewState> {
   render() {
     return (
       <div>
-        {console.log(this.state.seatsSelected)}
         {this.state.isLoaded ? (
           <div>
-            <MovieBox title={"Gooseboy"} /> <TicketContainer 
+            <MovieBox movie={this.state.movie} date={this.state.date} /> <TicketContainer 
             id={this.props.match.params.id} 
             selected={this.state.seatsSelected}
-            movie={this.state.movie}
             theater={this.state.theater}
-            date={this.state.date}
             />
           </div>
         ) : (
