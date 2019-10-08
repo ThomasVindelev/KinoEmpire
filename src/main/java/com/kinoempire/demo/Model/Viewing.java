@@ -1,7 +1,7 @@
 package com.kinoempire.demo.Model;
 
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Viewing {
@@ -9,7 +9,7 @@ public class Viewing {
     private List<Seat> seating = new ArrayList<>();
     private Movie movie;
     private Theater theater;
-    private Date date;
+    private java.sql.Date date;
 
 
     public Viewing() {
@@ -44,7 +44,11 @@ public class Viewing {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setSeating(List<Seat> seating) {
+        this.seating = seating;
+    }
+
+    public void setDate(java.sql.Date date) {
         this.date = date;
     }
 }

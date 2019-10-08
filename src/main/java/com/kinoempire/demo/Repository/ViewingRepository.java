@@ -1,8 +1,10 @@
 package com.kinoempire.demo.Repository;
 
 import com.kinoempire.demo.Model.Seat;
+import com.kinoempire.demo.Model.Viewing;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.View;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,6 +33,12 @@ public class ViewingRepository extends Database {
         preparedStatement.setInt(1, viewingId);
         return preparedStatement.executeQuery();
 
+    }
+
+    public void createViewing(Viewing viewing) throws SQLException {
+        query = "INSERT INTO viewing (time, fk_movie, fk_theater) VALUES (?, ?, ?)";
+        preparedStatement = getConnection().prepareStatement(query);
+        preparedStatement.setDate(1, viewing.getDate());
     }
 
     public void reserveSeats(Seat seat, int viewingId) throws SQLException {
