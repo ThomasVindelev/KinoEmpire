@@ -2,6 +2,7 @@ package com.kinoempire.demo.Model;
 
 public class Movie {
 
+    private int id;
     private String title;
     private String description;
     private int length;
@@ -19,6 +20,13 @@ public class Movie {
         this.age_limit = age_limit;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
