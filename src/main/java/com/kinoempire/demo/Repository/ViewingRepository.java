@@ -39,7 +39,6 @@ public class ViewingRepository extends Database {
         query = "INSERT INTO viewing (time, fk_movie, fk_theater) VALUES (?, ?, ?)";
         preparedStatement = getConnection().prepareStatement(query);
         preparedStatement.setDate(1, viewing.getDate());
-        preparedStatement.setInt(2, );
     }
 
     public void reserveSeats(Seat seat, int viewingId) throws SQLException {
