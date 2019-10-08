@@ -5,6 +5,7 @@ import TopNav from "./Component/TopNav";
 import Overview from "./views/Overview/Overview";
 import Container from "./Component/Container";
 import ManageMovie from "./views/ManageMovie/ManageMovie";
+import ManageViewing from "./views/ManageViewing/ManageViewing";
 
 class App extends React.Component {
   render() {
@@ -15,7 +16,8 @@ class App extends React.Component {
           <Switch>
             <Container>
               <Route path="/overview/:id" component={Overview} />
-              <Route path="/manage" component={ManageMovie} />
+              <Route path="/movie" component={ManageMovie} />
+              <Route path="/viewing" component={ManageViewing} />
             </Container>
           </Switch>
         </BrowserRouter>
