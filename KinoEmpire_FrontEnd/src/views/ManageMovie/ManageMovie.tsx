@@ -3,6 +3,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
+import './ManageMovie.css';
+import Notification from '../../Component/Notification/Notification';
+import Modal from '../../Component/Modal';
 
 interface ManageMovieProps {
 
@@ -16,6 +19,8 @@ interface ManageMovieState {
     genreInput: string;
     genreId: string;
     movies: any[];
+    movieAdded: boolean;
+    showModal: boolean;
 }
 
 class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
@@ -44,7 +49,9 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
             age_limit: '',
             genreInput: '',
             genreId: '',
-            movies: []
+            movies: [],
+            movieAdded: false,
+            showModal: false
         }
     }
 
@@ -95,7 +102,7 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
             .then(res => {
                 let tempArray = this.state.movies;
                 tempArray.push(data);
-                this.setState({ movies : tempArray })
+                this.setState({ movies : tempArray, movieAdded: true })
             })
             .catch(err => console.log(err));
     }
@@ -156,7 +163,12 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
                                     <td>{m.length}</td>
                                     <td>{m.age_limit}</td>
                                     <td>{m.genre.name}</td>
-                                    <td><Button key={index} variant="danger" type="submit" onClick={(e: any) => {
+                                    <td className="editDelete">
+                                    <Button style={{ width: '70%' }} key={index} variant="primary" type="submit" onClick={(e: any) => {
+                                        e.preventDefault();
+                                        this.setState({ showModal: true })
+                                    }}>Ret</Button>
+                                        <Button key={index} variant="danger" type="submit" onClick={(e: any) => {
                                         e.preventDefault();
                                         console.log(m.id);
                                         fetch(`http://localhost:5000/deleteMovie/${m.id}`, {
@@ -180,6 +192,8 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
                         })}
                     </tbody>
                 </Table>
+                {this.state.movieAdded ? <Notification /> : null}
+                {this.state.showModal ? <Modal/> : null}
             </div>
 
         )

@@ -9,7 +9,7 @@ export default class TopNav extends Component {
     return (
       <div>
         <Navbar bg="dark" variant="dark" className="flex">
-          <Navbar.Brand href="#home">{"Kino Empire"}</Navbar.Brand>
+          <Navbar.Brand href="/">{"Kino Empire"}</Navbar.Brand>
           <Form inline>
             <Search/>
           </Form>
