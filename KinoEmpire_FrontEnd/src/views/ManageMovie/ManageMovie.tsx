@@ -125,8 +125,8 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
                         <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>Genre</Form.Label>
                             <Form.Control as="select" value={this.state.genreInput} onChange={this.onChangeGenreId}>
-                                {this.state.genres.map((g) => {
-                                    return <option key={g.id}>{g.name}</option>
+                                {this.state.genres.map((g, index) => {
+                                    return <option key={index}>{g.name}</option>
                                 })}
                             </Form.Control>
                         </Form.Group>
@@ -149,16 +149,16 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.movies.map(m => {
+                        {this.state.movies.map((m, index) => {
                             return (
-                                <tr key={m.id}>
+                                <tr key={index}>
                                     <td>{m.title}</td>
                                     <td>{m.length}</td>
                                     <td>{m.age_limit}</td>
                                     <td>{m.genre.name}</td>
-                                    <td><Button variant="danger" type="submit" onClick={(e: any) => {
+                                    <td><Button key={index} variant="danger" type="submit" onClick={(e: any) => {
                                         e.preventDefault();
-
+                                        console.log(m.id);
                                         fetch(`http://localhost:5000/deleteMovie/${m.id}`, {
                                             method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
                                             headers: {

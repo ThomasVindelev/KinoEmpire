@@ -7,6 +7,7 @@ public class Movie {
     private String description;
     private int length;
     private int age_limit;
+    private int genreId;
     private Genre genre;
 
     public Movie() {
@@ -18,6 +19,14 @@ public class Movie {
         this.description = description;
         this.length = length;
         this.age_limit = age_limit;
+    }
+
+    public int getGenreId() {
+        return genreId;
+    }
+
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
     }
 
     public int getId() {
