@@ -23,5 +23,4 @@ public class ViewingController {
     public Object getViewingById(@PathVariable("id") int id) {
         return viewingService.getViewingById(id);
     }
-
 }

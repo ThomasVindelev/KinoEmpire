@@ -39,7 +39,6 @@ public class MovieService {
             while(resultSet.next()) {
                 Movie movie = new Movie();
                 Genre genre = new Genre();
-                movie.setId(resultSet.getInt("id"));
                 movie.setTitle(resultSet.getString("title"));
                 movie.setDescription(resultSet.getString("description"));
                 movie.setAge_limit(resultSet.getInt("age_limit"));
@@ -61,7 +60,6 @@ public class MovieService {
         Genre genre = new Genre();
         try {
             if(resultSet.next()) {
-                movie.setId(resultSet.getInt("id"));
                 movie.setTitle(resultSet.getString("title"));
                 movie.setDescription(resultSet.getString("description"));
                 movie.setAge_limit(resultSet.getInt("age_limit"));
@@ -82,7 +80,6 @@ public class MovieService {
         try {
             while (resultSet.next()) {
                 Genre genre = new Genre();
-                genre.setId(resultSet.getInt("id"));
                 genre.setName(resultSet.getString("genre"));
                 genres.add(genre);
             }
