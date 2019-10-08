@@ -14,6 +14,10 @@ interface ticketState {
 
 interface ticketProps {
   selected: any[];
+  id: string;
+  movie: undefined,
+  theater: undefined,
+  date: string;
 }
 
 export default class TicketContainer extends Component<ticketProps, ticketState> {
@@ -54,6 +58,25 @@ export default class TicketContainer extends Component<ticketProps, ticketState>
       allSelected: [],
       ticketPrice: 115
     };
+  }
+
+  private handleSubmit = (e: any) => {
+    console.log(JSON.stringify(this.state.allSelected))
+
+    e.preventDefault();
+    fetch(`http://localhost:5000/reserveSeats/${this.props.id}`, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(this.state.allSelected) // body data type must match "Content-Type" header
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => console.log(err));
   }
 
   private handlePlus = () => {
@@ -126,6 +149,7 @@ export default class TicketContainer extends Component<ticketProps, ticketState>
               </Card.Title>
               <Card.Text>
                 <Button
+                  onClick={this.handleSubmit}
                   variant="success"
                   size="lg"
                   block
@@ -160,7 +184,7 @@ export default class TicketContainer extends Component<ticketProps, ticketState>
                               temp => temp.seat === seat && temp.row === row
                             ).length === 0 && this.props.selected.filter(temp => temp.seat === seat && temp.row === row).length === 0
                           ) {
-                            newSelected.push({ seat, row });
+                            newSelected.push({ seat: seat, row: row });
                             this.setState({ allSelected: newSelected });
                           }
                         }

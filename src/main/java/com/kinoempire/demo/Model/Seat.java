@@ -1,5 +1,7 @@
 package com.kinoempire.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+@JsonAutoDetect
 public class Seat {
 
     private int row;

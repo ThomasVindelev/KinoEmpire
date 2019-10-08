@@ -28,8 +28,9 @@ public class ViewingController {
         return viewingService.getViewingById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/reserveSeats/{id}")
-    public void reserveSeats(@RequestBody List<Seat> seats, @PathVariable("id") int id) {
+    public void reserveSeats(@RequestBody Seat[] seats, @PathVariable("id") int id) {
         viewingService.reserveSeats(seats, id);
     }
 }

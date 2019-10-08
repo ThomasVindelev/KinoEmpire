@@ -6,7 +6,10 @@ import { RouteComponentProps } from "react-router-dom";
 
 interface overviewState {
   isLoaded: boolean;
-  databaseSelected: any[];
+  seatsSelected: any[];
+  movie: undefined;
+  theater: undefined;
+  date: string;
 }
 
 interface RouteInfo {
@@ -22,7 +25,10 @@ export default class Overview extends Component<ComponentProps, overviewState> {
     super(props);
     this.state = {
       isLoaded: false,
-      databaseSelected: []
+      seatsSelected: [],
+      movie: undefined,
+      theater: undefined,
+      date: ''
     };
   }
 
@@ -31,10 +37,15 @@ export default class Overview extends Component<ComponentProps, overviewState> {
   }
 
   private getSeats = () => {
-    fetch(`http://localhost:5000/getSeats/${this.props.match.params.id}`)
+    fetch(`http://localhost:5000/getViewing/${this.props.match.params.id}`)
       .then(res => res.json())
       .then(res => {
-        this.setState({ databaseSelected : res.seating, isLoaded: true })
+        this.setState({ 
+          seatsSelected : res.seating, 
+          movie : res.movie,
+          theater: res.theater,
+          date: res.date,
+          isLoaded: true })
       })
       .catch(err => console.log(err)) 
   }
@@ -42,9 +53,16 @@ export default class Overview extends Component<ComponentProps, overviewState> {
   render() {
     return (
       <div>
+        {console.log(this.state.seatsSelected)}
         {this.state.isLoaded ? (
           <div>
-            <MovieBox title={"Gooseboy"} /> <TicketContainer selected={this.state.databaseSelected} />
+            <MovieBox title={"Gooseboy"} /> <TicketContainer 
+            id={this.props.match.params.id} 
+            selected={this.state.seatsSelected}
+            movie={this.state.movie}
+            theater={this.state.theater}
+            date={this.state.date}
+            />
           </div>
         ) : (
           <Spinner

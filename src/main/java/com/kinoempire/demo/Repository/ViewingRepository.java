@@ -23,11 +23,12 @@ public class ViewingRepository extends Database {
     }
 
     public ResultSet getViewingById(int viewingId) throws SQLException {
-        query = "SELECT viewing.id, viewing.time, theater.rows, theater.seats, movie.description, movie.title, movie.length, movie.age_limit, movie.img_url, genre.genre " +
+        query = "SELECT seating.row, seating.seat, viewing.id, viewing.time, theater.rows, theater.seats, movie.description, movie.title, movie.length, movie.age_limit, movie.img_url, genre.genre " +
                 "FROM viewing " +
                 "INNER JOIN theater ON viewing.fk_theater = theater.id " +
                 "INNER JOIN movie ON viewing.fk_movie = movie.id " +
                 "INNER JOIN genre ON movie.fk_genre = genre.id " +
+                "INNER JOIN seating ON fk_viewing = viewing.id " +
                 "WHERE viewing.id = ?";
         preparedStatement = getConnection().prepareStatement(query);
         preparedStatement.setInt(1, viewingId);
