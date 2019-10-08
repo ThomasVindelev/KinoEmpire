@@ -3,7 +3,6 @@ import MovieBox from "./MovieBox/MovieBox";
 import TicketContainer from "./TicketContainer/TicketContainer";
 import Spinner from "react-bootstrap/Spinner";
 import { RouteComponentProps } from "react-router-dom";
-const global = require('../globals');
 
 interface overviewState {
   isLoaded: boolean;
@@ -32,7 +31,7 @@ export default class Overview extends Component<ComponentProps, overviewState> {
   }
 
   private getSeats = () => {
-    fetch(`${global.HOST_URL}/getSeats/${this.props.match.params.id}`)
+    fetch(`http://localhost:5000/getSeats/${this.props.match.params.id}`)
       .then(res => res.json())
       .then(res => {
         this.setState({ databaseSelected : res.seating, isLoaded: true })

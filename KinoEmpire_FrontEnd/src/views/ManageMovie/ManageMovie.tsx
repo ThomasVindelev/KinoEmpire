@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-const global = require('../globals');
 
 interface ManageMovieProps {
 
@@ -26,11 +25,11 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
     }
 
     getInfo = () => {
-            fetch(`${global.HOST_URL}/getGenres`)
+            fetch(`http://localhost:5000/getGenres`)
             .then(res => res.json())
             .then(res => this.setState({ genres: res }))
             .then(res => {
-                fetch(`${global.HOST_URL}/movies`)
+                fetch(`http://localhost:5000/movies`)
                 .then(res => res.json())
                 .then(res => this.setState({ movies: res }));
             });
@@ -84,7 +83,7 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
 
         console.log(data);
 
-        fetch(`${global.HOST_URL}/addMovie`, {
+        fetch(`http://localhost:5000/addMovie`, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
                 'Content-Type': 'application/json'
@@ -160,7 +159,7 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
                                     <td><Button variant="danger" type="submit" onClick={(e: any) => {
                                         e.preventDefault();
 
-                                        fetch(`${global.HOST_URL}/deleteMovie/${m.id}`, {
+                                        fetch(`http://localhost:5000/deleteMovie/${m.id}`, {
                                             method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
                                             headers: {
                                                 'Content-Type': 'application/json'
