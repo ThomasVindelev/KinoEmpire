@@ -1,5 +1,6 @@
 package com.kinoempire.demo.Repository;
 
+import com.kinoempire.demo.Model.Seat;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -30,5 +31,14 @@ public class ViewingRepository extends Database {
         preparedStatement.setInt(1, viewingId);
         return preparedStatement.executeQuery();
 
+    }
+
+    public void reserveSeats(Seat seat, int viewingId) throws SQLException {
+        query = "INSERT INTO seating (row, seat, fk_viewing) VALUES (?,?,?)";
+        preparedStatement = getConnection().prepareStatement(query);
+        preparedStatement.setInt(1, seat.getRow());
+        preparedStatement.setInt(2, seat.getSeat());
+        preparedStatement.setInt(3, viewingId);
+        preparedStatement.execute();
     }
 }

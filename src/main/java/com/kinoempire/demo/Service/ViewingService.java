@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class ViewingService {
@@ -56,5 +57,15 @@ public class ViewingService {
             e.printStackTrace();
         }
         return viewing;
+    }
+
+    public void reserveSeats(List<Seat> seats, int viewingId) {
+        for (Seat seat : seats) {
+            try {
+                viewingRepository.reserveSeats(seat, viewingId);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
