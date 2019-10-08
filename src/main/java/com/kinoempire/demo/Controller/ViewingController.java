@@ -19,4 +19,9 @@ public class ViewingController {
         return viewingService.getSeatsByViewing(id);
     }
 
+    @GetMapping("/getViewing/{id}")
+    public Object getViewingById(@PathVariable("id") int id) {
+        return viewingService.getViewingById(id);
+    }
+
 }
