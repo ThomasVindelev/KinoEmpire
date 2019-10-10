@@ -168,7 +168,7 @@ export default class TicketContainer extends Component<ticketProps, ticketState>
                     this.state.allSelected.filter(
                       temp => temp.seat === seat && temp.row === row
                     ).length > 0
-                      ? "#3368FF" : this.props.selected.filter(temp => temp.seat === seat && temp.row === row).length > 0 ? "#bd2130" : "#28a745";
+                      ? "#ffff00" : this.props.selected.filter(temp => temp.seat === seat && temp.row === row).length > 0 ? "#bd2130" : "#28a745";
                   return (
                     <div
                       className="row"
