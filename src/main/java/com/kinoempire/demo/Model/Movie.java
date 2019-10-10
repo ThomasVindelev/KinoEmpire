@@ -14,12 +14,13 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(String title, String description, int length, int age_limit) {
+    public Movie(String title, String description, int length, int age_limit, String img_url) {
 
         this.title = title;
         this.description = description;
         this.length = length;
         this.age_limit = age_limit;
+        this.img_url = img_url;
     }
 
     public int getGenreId() {
