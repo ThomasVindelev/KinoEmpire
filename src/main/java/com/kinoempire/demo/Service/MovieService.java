@@ -24,7 +24,7 @@ public class MovieService {
         try {
             return movieRepository.addMovie(movie);
         } catch (SQLException e) {
-            e.printStackTrace();
+            return true;
         }
     }
 
@@ -32,7 +32,7 @@ public class MovieService {
         try {
             return movieRepository.updateMovie(movie, id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            return true;
         }
     }
 
@@ -40,7 +40,7 @@ public class MovieService {
         try {
             return movieRepository.deleteMovie(id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            return true;
         }
     }
 

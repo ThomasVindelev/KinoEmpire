@@ -24,8 +24,6 @@ public class MovieRepository extends Database {
             preparedStatement.setInt(5, movie.getGenreId());
             preparedStatement.setString(6, movie.getImg_url());
             return preparedStatement.execute();
-
-        return true;
     }
 
     public boolean updateMovie(Movie movie, int id) throws SQLException {
@@ -37,8 +35,6 @@ public class MovieRepository extends Database {
             preparedStatement.setInt(3, movie.getAge_limit());
             preparedStatement.setInt(5, id);
             return preparedStatement.execute();
-
-        return true;
     }
 
     public boolean deleteMovie(int id) throws SQLException {
@@ -47,8 +43,6 @@ public class MovieRepository extends Database {
             preparedStatement = getConnection().prepareStatement(query);
             preparedStatement.setInt(1, id);
             return preparedStatement.execute();
-
-        return true;
     }
 
     public ResultSet getAllMovies() throws SQLException {
