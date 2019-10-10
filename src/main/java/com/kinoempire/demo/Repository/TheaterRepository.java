@@ -19,8 +19,9 @@ public class TheaterRepository extends Database {
     }
 
     public ResultSet getTheaterById(int id) throws SQLException {
-        query = "SELECT * FROM theater WHERE id = " + id;
+        query = "SELECT * FROM theater WHERE id = ?";
         preparedStatement = getConnection().prepareStatement(query);
+        preparedStatement.setInt(1, id);
         return preparedStatement.executeQuery();
     }
 
