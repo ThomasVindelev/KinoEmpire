@@ -47,6 +47,7 @@ public class ViewingService {
                 movie.setAge_limit(resultSet.getInt("age_limit"));
                 movie.setImg_url(resultSet.getString("img_url"));
                 genre.setName(resultSet.getString("genre"));
+                theater.setId(resultSet.getInt("theater.id"));
                 theater.setRows(resultSet.getInt("rows"));
                 theater.setSeats(resultSet.getInt("seats"));
                 viewing.setDate(resultSet.getString("time"));
