@@ -12,7 +12,7 @@ import java.util.Map;
 @RestController
 public class ViewingController {
 
-    private ViewingService viewingService;
+    private final ViewingService viewingService;
 
     public ViewingController(ViewingService viewingService) {
         this.viewingService = viewingService;
