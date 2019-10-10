@@ -4,7 +4,7 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>Search her</div>
+      <div></div>
     );
   }
 }

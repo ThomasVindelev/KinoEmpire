@@ -14,7 +14,7 @@ public class MovieRepository extends Database {
     private String query;
 
     public boolean addMovie(Movie movie) {
-        query = "INSERT INTO movie (title, description, length, age_limit, fk_genre) VALUES (?,?,?,?,?)";
+        query = "INSERT INTO movie (title, description, length, age_limit, fk_genre, img_url) VALUES (?,?,?,?,?,?)";
         try {
             preparedStatement = getConnection().prepareStatement(query);
             preparedStatement.setString(1, movie.getTitle());
@@ -22,6 +22,7 @@ public class MovieRepository extends Database {
             preparedStatement.setInt(3, movie.getLength());
             preparedStatement.setInt(4, movie.getAge_limit());
             preparedStatement.setInt(5, movie.getGenreId());
+            preparedStatement.setString(6, movie.getImg_url());
             return preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

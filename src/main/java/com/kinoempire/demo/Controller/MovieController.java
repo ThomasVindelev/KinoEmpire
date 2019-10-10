@@ -15,6 +15,7 @@ public class MovieController {
         this.movieService = movieService;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getGenres")
     public Object getGenres() {
         return movieService.getGenres();
@@ -44,6 +45,7 @@ public class MovieController {
         return message;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/movies")
     public Object getMovies() {
         return movieService.getAllMovies();
