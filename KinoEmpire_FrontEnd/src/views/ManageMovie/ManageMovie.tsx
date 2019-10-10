@@ -16,6 +16,8 @@ interface ManageMovieState {
     title: string;
     length: string;
     age_limit: string;
+    description: string;
+    img_url: string;
     genreInput: string;
     genreId: string;
     movies: any[];
@@ -47,6 +49,8 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
             title: '',
             length: '',
             age_limit: '',
+            description: '',
+            img_url: '',
             genreInput: '',
             genreId: '',
             movies: [],
@@ -67,6 +71,14 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
         this.setState({ age_limit: e.target.value })
     }
 
+    private onChangeDescription = (e: any) => {
+        this.setState({ description: e.target.value })
+    }
+
+    private onChangeImgUrl = (e: any) => {
+        this.setState({ img_url: e.target.value })
+    }
+
     private onChangeGenreId = (e: any) => {
         this.state.genres.filter(temp => {
             if (temp.name === e.target.value) {
@@ -83,6 +95,8 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
             length: this.state.length,
             age_limit: this.state.age_limit,
             genreId: this.state.genreId,
+            description: this.state.description,
+            img_url: this.state.img_url,
             genre: {
                 name: this.state.genreInput
             }
@@ -126,6 +140,14 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
                     <Form.Group controlId="formGridAddress1">
                         <Form.Label>Aldersbegrænsning</Form.Label>
                         <Form.Control placeholder="Indsæt alder" value={this.state.age_limit} onChange={this.onChangeAgeLimit} />
+                    </Form.Group>
+                    <Form.Group controlId="formGridAddress1">
+                        <Form.Label>Beskrivelse</Form.Label>
+                        <Form.Control placeholder="Indsæt beskrivelse" value={this.state.description} onChange={this.onChangeDescription} />
+                    </Form.Group>
+                    <Form.Group controlId="formGridAddress1">
+                        <Form.Label>Billede url</Form.Label>
+                        <Form.Control placeholder="Indsæt url" value={this.state.img_url} onChange={this.onChangeImgUrl} />
                     </Form.Group>
 
                     <Form.Row>

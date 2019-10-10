@@ -11,6 +11,7 @@ interface MovieBoxProps {
   description?: string;
   length: string;
   age_limit: string;
+  img_url: string;
   genre: {
     name: string;
   }
@@ -24,7 +25,7 @@ export default class MovieBox extends Component<MovieBoxProps> {
           <div className="bg"></div>
           <div className="MoviePic">
             <img
-              src="https://www.nfbio.dk/sites/default/files/styles/movie_poster_homepage/public/movies/gooseboy_plakat.jpg?itok=IIxvCOL2"
+              src={this.props.movie.img_url}
               alt="moviepic"
             />
             <div className="MovieText">
@@ -35,7 +36,7 @@ export default class MovieBox extends Component<MovieBoxProps> {
                 {this.props.date}
               </h6>
               <span className="MovieTextInfo">
-              {this.props.movie.length} minutter forventet 
+              {this.props.movie.length} minutter. 
                 <br/>Beskrivelse: {this.props.movie.description}
                 <br/>Aldersgrænse: {this.props.movie.age_limit}
               </span>
