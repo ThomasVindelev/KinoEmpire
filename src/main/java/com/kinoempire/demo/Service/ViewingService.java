@@ -49,7 +49,7 @@ public class ViewingService {
                 genre.setName(resultSet.getString("genre"));
                 theater.setRows(resultSet.getInt("rows"));
                 theater.setSeats(resultSet.getInt("seats"));
-                viewing.setDate(resultSet.getDate("time"));
+                viewing.setDate(resultSet.getString("time"));
                 movie.setGenre(genre);
                 viewing.setMovie(movie);
                 viewing.setTheater(theater);
@@ -67,6 +67,15 @@ public class ViewingService {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public boolean createViewing(Viewing viewing) {
+        try {
+            return viewingRepository.createViewing(viewing);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return true;
         }
     }
 }

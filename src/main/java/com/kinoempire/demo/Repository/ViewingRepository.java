@@ -36,10 +36,13 @@ public class ViewingRepository extends Database {
 
     }
 
-    public void createViewing(Viewing viewing) throws SQLException {
+    public boolean createViewing(Viewing viewing) throws SQLException {
         query = "INSERT INTO viewing (time, fk_movie, fk_theater) VALUES (?, ?, ?)";
         preparedStatement = getConnection().prepareStatement(query);
-        preparedStatement.setDate(1, viewing.getDate());
+        preparedStatement.setString(1, viewing.getDate());
+        preparedStatement.setInt(2, viewing.getMovieId());
+        preparedStatement.setInt(3, viewing.getTheaterId());
+        return preparedStatement.execute();
     }
 
     public void reserveSeats(Seat seat, int viewingId) throws SQLException {

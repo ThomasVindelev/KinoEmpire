@@ -1,6 +1,7 @@
 package com.kinoempire.demo.Controller;
 
 import com.kinoempire.demo.Model.Seat;
+import com.kinoempire.demo.Model.Viewing;
 import com.kinoempire.demo.Service.ViewingService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,14 @@ public class ViewingController {
 
     public ViewingController(ViewingService viewingService) {
         this.viewingService = viewingService;
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/createViewing")
+    public Object createViewing(@RequestBody Viewing viewing) {
+        Map<String, Boolean> error = new HashMap<>();
+        error.put("error", viewingService.createViewing(viewing));
+        return error;
     }
 
     @GetMapping("/getSeats/{id}")
