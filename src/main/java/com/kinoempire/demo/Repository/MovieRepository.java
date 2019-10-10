@@ -71,7 +71,7 @@ public class MovieRepository extends Database {
     }
 
     public ResultSet getMovieTitles() throws SQLException {
-        query = "SELECT id, title FROM movies";
+        query = "SELECT id, title FROM movie";
 
             preparedStatement = getConnection().prepareStatement(query);
             return preparedStatement.executeQuery();
