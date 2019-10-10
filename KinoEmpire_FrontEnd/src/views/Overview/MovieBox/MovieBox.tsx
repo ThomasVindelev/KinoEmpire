@@ -4,7 +4,9 @@ import "./MovieBox.css";
 interface MovieBoxProps {
   movie: Movie;
   date: string;
+  theaterId: number;
 }
+
 
  interface Movie {
   title: string;
@@ -31,7 +33,7 @@ export default class MovieBox extends Component<MovieBoxProps> {
             <div className="MovieText">
               <h1>{this.props.movie.title}</h1>
               <h6 className="MovieTextTime">
-                Theater 1
+                Sal {this.props.theaterId}
                 <br />
                 {this.props.date}
               </h6>

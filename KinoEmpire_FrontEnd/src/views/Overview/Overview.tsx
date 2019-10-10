@@ -70,7 +70,7 @@ export default class Overview extends Component<ComponentProps, overviewState> {
       <div>
         {this.state.isLoaded ? (
           <div>
-            <MovieBox movie={this.state.movie} date={this.state.date} /> <TicketContainer 
+            <MovieBox movie={this.state.movie} date={this.state.date} theaterId={0} /> <TicketContainer 
             id={this.props.match.params.id} 
             selected={this.state.seatsSelected}
             theater={this.state.theater}
