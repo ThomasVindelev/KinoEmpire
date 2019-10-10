@@ -40,6 +40,7 @@ public class Viewing {
     public void setTheater(Theater theater) {
         this.theater = theater;
     }
+
     public void setSeating(List<Seat> seating) {
         this.seating = seating;
     }
