@@ -91,4 +91,21 @@ public class MovieService {
         }
         return null;
     }
+
+    public Object getMovieTitles() {
+        resultSet = movieRepository.getMovieTitles();
+        List<Movie> movies = new ArrayList<>();
+        try {
+            while (resultSet.next()) {
+                Movie movie = new Movie();
+                movie.setId(resultSet.getInt("id"));
+                movie.setTitle(resultSet.getString("title"));
+                movies.add(movie);
+            }
+            return movies;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

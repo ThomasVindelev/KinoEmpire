@@ -92,4 +92,15 @@ public class MovieRepository extends Database {
         }
         return null;
     }
+
+    public ResultSet getMovieTitles() {
+        query = "SELECT id, title FROM movies";
+        try {
+            preparedStatement = getConnection().prepareStatement(query);
+            return preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

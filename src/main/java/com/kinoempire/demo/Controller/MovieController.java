@@ -28,6 +28,11 @@ public class MovieController {
         return message;
     }
 
+    @GetMapping("/getMovieTitles")
+    public Object getMovieTitles() {
+        return movieService.getMovieTitles();
+    }
+
     @PostMapping("/updateMovie/{id}")
     public Object updateMovie(@RequestBody Movie movie, @PathVariable("id") int id) {
         Map<String, Boolean> message = new HashMap<>();
