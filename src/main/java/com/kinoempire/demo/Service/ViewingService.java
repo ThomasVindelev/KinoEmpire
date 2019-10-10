@@ -25,7 +25,7 @@ public class ViewingService {
                 Seat seat = new Seat();
                 seat.setSeat(resultSet.getInt("seat"));
                 seat.setRow(resultSet.getInt("row"));
-                viewing.setSeating(seat);
+                viewing.addSeating(seat);
             }
         } catch (SQLException e) {
             e.printStackTrace();

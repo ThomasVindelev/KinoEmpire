@@ -9,7 +9,7 @@ public class Viewing {
     private List<Seat> seating = new ArrayList<>();
     private Movie movie;
     private Theater theater;
-    private int movieId;
+    private int mid;
     private int theaterId;
     private String date;
 
@@ -17,11 +17,20 @@ public class Viewing {
 
     }
 
+    public Viewing(List<Seat> seating, Movie movie, Theater theater, int mid, int theaterId, String date) {
+        this.seating = seating;
+        this.movie = movie;
+        this.theater = theater;
+        this.mid = mid;
+        this.theaterId = theaterId;
+        this.date = date;
+    }
+
     public List<Seat> getSeating() {
         return seating;
     }
 
-    public void setSeating(Seat seat) {
+    public void addSeating(Seat seat) {
         seating.add(seat);
     }
 
@@ -45,12 +54,13 @@ public class Viewing {
         this.seating = seating;
     }
 
-    public int getMovieId() {
-        return movieId;
+
+    public int getMid() {
+        return mid;
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public void setMid(int mid) {
+        this.mid = mid;
     }
 
     public int getTheaterId() {

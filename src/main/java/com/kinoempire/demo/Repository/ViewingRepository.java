@@ -40,7 +40,7 @@ public class ViewingRepository extends Database {
         query = "INSERT INTO viewing (time, fk_movie, fk_theater) VALUES (?, ?, ?)";
         preparedStatement = getConnection().prepareStatement(query);
         preparedStatement.setString(1, viewing.getDate());
-        preparedStatement.setInt(2, viewing.getMovieId());
+        preparedStatement.setInt(2, viewing.getMid());
         preparedStatement.setInt(3, viewing.getTheaterId());
         return preparedStatement.execute();
     }

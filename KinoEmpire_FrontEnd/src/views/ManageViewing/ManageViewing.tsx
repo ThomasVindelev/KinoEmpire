@@ -13,7 +13,8 @@ interface ManageViewingState {
     date: string;
     movieInput: string;
     salInput: string;
-    movieId: number;
+    salId: string;
+    movieId: string;
 }
 
 class ManageViewing extends React.Component<ManageViewingProps, ManageViewingState> {
@@ -38,11 +39,11 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
     private addViewing = (e: any) => {
         e.preventDefault();
         let data = {
-            movieId: this.state.movieId,
-            theaterId: this.state.salInput,
+            mid: this.state.movieId,
+            theaterId: this.state.salId,
             date: this.state.date
         }
-        console.log(data);
+        console.log(JSON.stringify(data));
         fetch(`http://localhost:5000/createViewing`, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -62,8 +63,8 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
 
     private onChangeMovieId = (e: any) => {
         this.state.movies.filter(temp => {
-            if (temp.name === e.target.value) {
-                console.log(temp.id);
+            if (temp.title === e.target.value) {
+                
                 this.setState({ movieId: temp.id })
             }
             this.setState({ movieInput: e.target.value })
@@ -71,16 +72,21 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
     }
 
     private onChangeSal = (e: any) => {
-        this.setState({ salInput : e.target.value })
+        this.state.sal.filter(temp => {
+            if (temp.id == e.target.value) {
+                this.setState({ salId: temp.id })
+            }
+        })
     }
 
     constructor(props: ManageViewingProps) {
         super(props);
         this.state = {
             sal: [],
+            salId: '',
             movies: [],
             date: '',
-            movieId: 0,
+            movieId: '',
             movieInput: '',
             salInput: ''
         }

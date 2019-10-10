@@ -22,6 +22,7 @@ public class ViewingController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/createViewing")
     public Object createViewing(@RequestBody Viewing viewing) {
+        System.out.println(viewing.getMid());
         Map<String, Boolean> error = new HashMap<>();
         error.put("error", viewingService.createViewing(viewing));
         return error;
