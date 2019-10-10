@@ -39,12 +39,13 @@ public class MovieService {
             while(resultSet.next()) {
                 Movie movie = new Movie();
                 Genre genre = new Genre();
-                movie.setTitle(resultSet.getString("title"));
                 movie.setId(resultSet.getInt("movie.id"));
+                movie.setTitle(resultSet.getString("title"));
                 movie.setDescription(resultSet.getString("description"));
                 movie.setAge_limit(resultSet.getInt("age_limit"));
                 movie.setImg_url(resultSet.getString("img_url"));
                 movie.setLength(resultSet.getInt("length"));
+                genre.setId(resultSet.getInt("genre.id"));
                 genre.setName(resultSet.getString("genre"));
                 movie.setGenre(genre);
                 movies.add(movie);
@@ -67,6 +68,7 @@ public class MovieService {
                 movie.setAge_limit(resultSet.getInt("age_limit"));
                 movie.setImg_url(resultSet.getString("img_url"));
                 movie.setLength(resultSet.getInt("length"));
+                genre.setId(resultSet.getInt("genre.id"));
                 genre.setName(resultSet.getString("genre"));
                 movie.setGenre(genre);
             }

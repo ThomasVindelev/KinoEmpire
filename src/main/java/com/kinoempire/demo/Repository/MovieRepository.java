@@ -58,7 +58,7 @@ public class MovieRepository extends Database {
     }
 
     public ResultSet getAllMovies() {
-        query = "SELECT movie.id, description, title, length, age_limit, img_url, genre FROM movie " +
+        query = "SELECT movie.id, description, title, length, age_limit, img_url, genre.id, genre FROM movie " +
                 "INNER JOIN genre ON movie.fk_genre = genre.id";
         try {
             preparedStatement = getConnection().prepareStatement(query);
@@ -70,7 +70,7 @@ public class MovieRepository extends Database {
     }
 
     public ResultSet getMovieById(int id) {
-        query = "SELECT title, description, length, age_limit, img_url, genre " +
+        query = "SELECT title, description, length, age_limit, img_url, genre.id, genre " +
                 "INNER JOIN genre ON fk_genre = genre.id WHERE movie.id = ?";
         try {
             preparedStatement = getConnection().prepareStatement(query);
