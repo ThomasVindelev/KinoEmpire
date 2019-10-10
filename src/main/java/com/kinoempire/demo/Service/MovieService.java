@@ -96,7 +96,7 @@ public class MovieService {
         return null;
     }
 
-    public Object getMovieTitles() {
+    public List<Movie> getMovieTitles() {
         resultSet = movieRepository.getMovieTitles();
         List<Movie> movies = new ArrayList<>();
         try {
