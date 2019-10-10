@@ -32,7 +32,13 @@ public class ViewingRepository extends Database {
         preparedStatement = getConnection().prepareStatement(query);
         preparedStatement.setInt(1, viewingId);
         return preparedStatement.executeQuery();
+    }
 
+    public ResultSet getViewingByMovieId(int viewingId) throws SQLException {
+        query = "SELECT id, time FROM viewing WHERE fk_movie = ?";
+        preparedStatement = getConnection().prepareStatement(query);
+        preparedStatement.setInt(1, viewingId);
+        return preparedStatement.executeQuery();
     }
 
     public boolean createViewing(Viewing viewing) throws SQLException {

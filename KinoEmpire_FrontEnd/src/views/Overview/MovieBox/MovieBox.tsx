@@ -7,7 +7,6 @@ interface MovieBoxProps {
   theaterId: number;
 }
 
-
  interface Movie {
   title: string;
   description?: string;

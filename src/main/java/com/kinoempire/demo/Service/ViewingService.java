@@ -4,8 +4,10 @@ import com.kinoempire.demo.Model.*;
 import com.kinoempire.demo.Repository.ViewingRepository;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.View;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,6 +61,22 @@ public class ViewingService {
             e.printStackTrace();
         }
         return viewing;
+    }
+
+    public List<Viewing> getViewingByMovieId(int id) {
+        List<Viewing> viewings = new ArrayList<>();
+        try {
+            ResultSet resultSet = viewingRepository.getViewingByMovieId(id);
+            while (resultSet.next()) {
+                Viewing viewing = new Viewing();
+                viewing.setDate(resultSet.getString("time"));
+                viewing.setId(resultSet.getInt("id"));
+                viewings.add(viewing);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return viewings;
     }
 
     public void reserveSeats(Seat[] seats, int viewingId) {

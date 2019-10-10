@@ -34,10 +34,11 @@ public class MovieController {
         return movieService.getMovieTitles();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/updateMovie/{id}")
     public Object updateMovie(@RequestBody Movie movie, @PathVariable("id") int id) {
         Map<String, Boolean> message = new HashMap<>();
-        System.out.println(movie.getTitle());
+        System.out.println(id);
         message.put("Error", movieService.updateMovie(movie, id));
         return message;
     }

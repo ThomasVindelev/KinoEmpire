@@ -17,9 +17,9 @@ class App extends React.Component {
           <Switch>
             <Container>
               <Route exact path="/" component={Home} />
-              <Route path="/overview/:id" component={Overview} />
+              <Route path="/viewing/:id" component={Overview} />
               <Route path="/movie" component={ManageMovie} />
-              <Route path="/viewing" component={ManageViewing} />
+              <Route exact path="/viewing" component={ManageViewing} />
             </Container>
           </Switch>
         </BrowserRouter>

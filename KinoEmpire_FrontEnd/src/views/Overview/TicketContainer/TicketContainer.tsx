@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./TicketContainer.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
 interface ticketState {
   seat: number[];
@@ -18,8 +19,8 @@ interface ticketProps {
   theater: undefined;
 }
 
-export default class TicketContainer extends Component<ticketProps, ticketState> {
-  
+class TicketContainer extends Component<ticketProps, ticketState> {
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -59,8 +60,6 @@ export default class TicketContainer extends Component<ticketProps, ticketState>
   }
 
   private handleSubmit = (e: any) => {
-    console.log(JSON.stringify(this.state.allSelected))
-
     e.preventDefault();
     fetch(`http://localhost:5000/reserveSeats/${this.props.id}`, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -70,11 +69,6 @@ export default class TicketContainer extends Component<ticketProps, ticketState>
             },
             body: JSON.stringify(this.state.allSelected) // body data type must match "Content-Type" header
         })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res);
-            })
-            .catch(err => console.log(err));
   }
 
   private handlePlus = () => {
@@ -198,3 +192,5 @@ export default class TicketContainer extends Component<ticketProps, ticketState>
     );
   }
 }
+
+export default TicketContainer;

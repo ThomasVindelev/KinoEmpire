@@ -27,13 +27,16 @@ public class MovieRepository extends Database {
     }
 
     public boolean updateMovie(Movie movie, int id) throws SQLException {
-        query = "UPDATE movie SET title = ?, length = ?, description = ?, age_limit = ?, fk_genre = ? WHERE id = ?";
+        query = "UPDATE movie SET title = ?, length = ?, description = ?, age_limit = ?, img_url = ?, fk_genre = ? WHERE id = ?";
 
             preparedStatement = getConnection().prepareStatement(query);
             preparedStatement.setString(1, movie.getTitle());
             preparedStatement.setInt(2, movie.getLength());
-            preparedStatement.setInt(3, movie.getAge_limit());
-            preparedStatement.setInt(5, id);
+            preparedStatement.setString(3, movie.getDescription());
+            preparedStatement.setInt(4, movie.getAge_limit());
+            preparedStatement.setString(5, movie.getImg_url());
+            preparedStatement.setInt(6, movie.getGenreId());
+            preparedStatement.setInt(7, id);
             return preparedStatement.execute();
     }
 

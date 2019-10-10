@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Viewing {
 
+    private int id;
     private List<Seat> seating = new ArrayList<>();
     private Movie movie;
     private Theater theater;
@@ -24,6 +25,14 @@ public class Viewing {
         this.mid = mid;
         this.theaterId = theaterId;
         this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<Seat> getSeating() {

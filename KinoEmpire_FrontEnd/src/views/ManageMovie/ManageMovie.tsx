@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
+import Overlay from "react-bootstrap/Overlay";
+import Tooltip from "react-bootstrap/Tooltip";
 import './ManageMovie.css';
 import Notification from '../../Component/Notification/Notification';
 import Modal from '../../Component/Modal';
@@ -14,6 +16,8 @@ interface ManageMovieProps {
 interface ManageMovieState {
     genres: any[];
     title: string;
+    id: number;
+    viewings: boolean;
     length: string;
     age_limit: string;
     description: string;
@@ -22,7 +26,9 @@ interface ManageMovieState {
     genreId: string;
     movies: any[];
     movieAdded: boolean;
-    showModal: boolean;
+    edit: boolean;
+    modalProps: any;
+    open: boolean;
 }
 
 class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
@@ -32,13 +38,13 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
     }
 
     getInfo = () => {
-            fetch(`http://localhost:5000/getGenres`)
+        fetch(`http://localhost:5000/getGenres`)
             .then(res => res.json())
             .then(res => this.setState({ genres: res }))
             .then(res => {
                 fetch(`http://localhost:5000/movies`)
-                .then(res => res.json())
-                .then(res => this.setState({ movies: res }));
+                    .then(res => res.json())
+                    .then(res => this.setState({ movies: res }));
             });
     }
 
@@ -46,6 +52,7 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
         super(props);
         this.state = {
             genres: [],
+            id: 0,
             title: '',
             length: '',
             age_limit: '',
@@ -55,8 +62,64 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
             genreId: '',
             movies: [],
             movieAdded: false,
-            showModal: false
+            edit: false,
+            modalProps: null,
+            open: false,
+            viewings: false
         }
+    }
+
+    private toggleModal = (m?: any): void => {
+        console.log(m);
+        this.setState({
+            edit: true,
+            modalProps: m,
+            title: m.title,
+            length: m.length,
+            age_limit: m.age_limit,
+            description: m.description,
+            img_url: m.img_url,
+            genreInput: m.genre.name,
+            id: m.id
+        })
+    }
+
+    private toggleViewings = (m?: any): void => {
+
+        this.setState({
+            viewings: !this.state.viewings,
+            modalProps: m
+        })
+    }
+
+    private editMovie = (e: any) => {
+        console.log(this.state.id);
+        e.preventDefault();
+        let data = {
+            title: this.state.title,
+            length: this.state.length,
+            age_limit: this.state.age_limit,
+            genreId: this.state.genreId,
+            description: this.state.description,
+            img_url: this.state.img_url,
+            genre: {
+                name: this.state.genreInput
+            }
+        }
+
+        fetch(`http://localhost:5000/updateMovie/${this.state.id}`, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        })
+            .then(res => res.json())
+            .then(res => {
+
+            })
+            .catch(err => console.log(err));
     }
 
     private onChangeTitle = (e: any) => {
@@ -116,7 +179,7 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
             .then(res => {
                 let tempArray = this.state.movies;
                 tempArray.push(data);
-                this.setState({ movies : tempArray, movieAdded: true })
+                this.setState({ movies: tempArray, movieAdded: true })
             })
             .catch(err => console.log(err));
     }
@@ -158,10 +221,12 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
                             </Form.Control>
                         </Form.Group>
                     </Form.Row>
+                    {this.state.edit ? <Button variant="success" type="submit" onClick={this.editMovie}>
+                        Ret film
+                    </Button> : <Button variant="success" type="submit" onClick={this.addMovie}>
+                            Tilføj Film
+                    </Button>}
 
-                    <Button variant="success" type="submit" onClick={this.addMovie}>
-                        Tilføj Film
-  </Button>
                 </Form>
                 <br />
                 <Table striped bordered hover variant="dark">
@@ -178,34 +243,36 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
                     <tbody>
                         {this.state.movies.map((m, index) => {
                             return (
-                                <tr key={index}>
-                                    <td>{m.title}</td>
+                                <tr key={m.id}>
+                                    <td onClick={() => this.setState({ open: true })}>{m.title}</td>
                                     <td>{m.length}</td>
                                     <td>{m.age_limit}</td>
                                     <td>{m.genre.name}</td>
                                     <td className="editDelete">
-                                    <Button style={{ width: '70%' }} key={index} variant="primary" type="submit" onClick={(e: any) => {
-                                        e.preventDefault();
-                                        this.setState({ showModal: true })
-                                    }}>Ret</Button>
+                                    <Button style={{ width: '45%' }} key={index} variant="success" type="submit" onClick={(e: any) => this.toggleViewings(m)
+                                        }
+                                        >Forestillinger</Button>
+                                        <Button style={{ width: '30%' }} key={index} variant="primary" type="submit" onClick={(e: any) => this.toggleModal(m)
+                                        }
+                                        >Rediger</Button>
                                         <Button key={index} variant="danger" type="submit" onClick={(e: any) => {
-                                        e.preventDefault();
-                                        console.log(m.id);
-                                        fetch(`http://localhost:5000/deleteMovie/${m.id}`, {
-                                            method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
-                                            headers: {
-                                                'Content-Type': 'application/json'
-                                                // 'Content-Type': 'application/x-www-form-urlencoded',
-                                            }
-                                        })
-                                            .then(res => res.json())
-                                            .then(res => {
-                                                let tempArray = this.state.movies.filter(movie => movie.id !== m.id);
-                                                this.setState({ movies: tempArray })
+                                            e.preventDefault();
+                                            console.log(m.id);
+                                            fetch(`http://localhost:5000/deleteMovie/${m.id}`, {
+                                                method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                                                }
                                             })
-                                            .catch(err => console.log(err));
-                                    }}>
-                                        Slet
+                                                .then(res => res.json())
+                                                .then(res => {
+                                                    let tempArray = this.state.movies.filter(movie => movie.id !== m.id);
+                                                    this.setState({ movies: tempArray })
+                                                })
+                                                .catch(err => console.log(err));
+                                        }}>
+                                            Slet
                                         </Button></td>
                                 </tr>
                             );
@@ -213,7 +280,7 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
                     </tbody>
                 </Table>
                 {this.state.movieAdded ? <Notification /> : null}
-                {this.state.showModal ? <Modal/> : null}
+                {this.state.viewings ? <Modal toggle={this.toggleViewings} modalProps={this.state.modalProps}/> : null}
             </div>
 
         )

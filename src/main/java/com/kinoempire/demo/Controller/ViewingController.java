@@ -38,6 +38,11 @@ public class ViewingController {
         return viewingService.getViewingById(id);
     }
 
+    @GetMapping("/getViewingByMovieId/{id}")
+    public Object getViewingByMovieId(@PathVariable("id") int id) {
+        return viewingService.getViewingByMovieId(id);
+    }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/reserveSeats/{id}")
     public void reserveSeats(@RequestBody Seat[] seats, @PathVariable("id") int id) {
