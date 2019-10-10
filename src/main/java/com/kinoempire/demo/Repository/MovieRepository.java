@@ -13,9 +13,9 @@ public class MovieRepository extends Database {
     private PreparedStatement preparedStatement;
     private String query;
 
-    public boolean addMovie(Movie movie) {
+    public boolean addMovie(Movie movie) throws SQLException {
         query = "INSERT INTO movie (title, description, length, age_limit, fk_genre, img_url) VALUES (?,?,?,?,?,?)";
-        try {
+
             preparedStatement = getConnection().prepareStatement(query);
             preparedStatement.setString(1, movie.getTitle());
             preparedStatement.setString(2, movie.getDescription());
@@ -24,84 +24,62 @@ public class MovieRepository extends Database {
             preparedStatement.setInt(5, movie.getGenreId());
             preparedStatement.setString(6, movie.getImg_url());
             return preparedStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         return true;
     }
 
-    public boolean updateMovie(Movie movie, int id) {
+    public boolean updateMovie(Movie movie, int id) throws SQLException {
         query = "UPDATE movie SET title = ?, length = ?, description = ?, age_limit = ?, fk_genre = ? WHERE id = ?";
-        try {
+
             preparedStatement = getConnection().prepareStatement(query);
             preparedStatement.setString(1, movie.getTitle());
             preparedStatement.setInt(2, movie.getLength());
             preparedStatement.setInt(3, movie.getAge_limit());
             preparedStatement.setInt(5, id);
             return preparedStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         return true;
     }
 
-    public boolean deleteMovie(int id) {
+    public boolean deleteMovie(int id) throws SQLException {
         query = "DELETE FROM movie WHERE id = ?";
-        try {
+
             preparedStatement = getConnection().prepareStatement(query);
             preparedStatement.setInt(1, id);
             return preparedStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         return true;
     }
 
-    public ResultSet getAllMovies() {
+    public ResultSet getAllMovies() throws SQLException {
         query = "SELECT movie.id, description, title, length, age_limit, img_url, genre.id, genre FROM movie " +
                 "INNER JOIN genre ON movie.fk_genre = genre.id";
-        try {
+
             preparedStatement = getConnection().prepareStatement(query);
             return preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
-    public ResultSet getMovieById(int id) {
+    public ResultSet getMovieById(int id) throws SQLException {
         query = "SELECT title, description, length, age_limit, img_url, genre.id, genre " +
                 "INNER JOIN genre ON fk_genre = genre.id WHERE movie.id = ?";
-        try {
+
             preparedStatement = getConnection().prepareStatement(query);
             preparedStatement.setInt(1, id);
             return preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
 
-    public ResultSet getGenres() {
+    public ResultSet getGenres() throws SQLException {
         query = "SELECT * FROM genre";
-        try {
+
             preparedStatement = getConnection().prepareStatement(query);
             return preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
-    public ResultSet getMovieTitles() {
+    public ResultSet getMovieTitles() throws SQLException {
         query = "SELECT id, title FROM movies";
-        try {
+
             preparedStatement = getConnection().prepareStatement(query);
             return preparedStatement.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

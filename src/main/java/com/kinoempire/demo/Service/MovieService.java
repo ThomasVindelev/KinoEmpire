@@ -21,21 +21,33 @@ public class MovieService {
     }
 
     public boolean addMovie(Movie movie) {
-        return movieRepository.addMovie(movie);
+        try {
+            return movieRepository.addMovie(movie);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean updateMovie(Movie movie, int id) {
-        return movieRepository.updateMovie(movie, id);
+        try {
+            return movieRepository.updateMovie(movie, id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean deleteMovie(int id) {
-        return movieRepository.deleteMovie(id);
+        try {
+            return movieRepository.deleteMovie(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Movie> getAllMovies() {
         List<Movie> movies = new ArrayList<>();
-        resultSet = movieRepository.getAllMovies();
         try {
+            resultSet = movieRepository.getAllMovies();
             while(resultSet.next()) {
                 Movie movie = new Movie();
                 Genre genre = new Genre();
@@ -50,18 +62,17 @@ public class MovieService {
                 movie.setGenre(genre);
                 movies.add(movie);
             }
-            return movies;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return movies;
     }
 
     public Movie getMovieById(int id) {
-        resultSet = movieRepository.getMovieById(id);
         Movie movie = new Movie();
         Genre genre = new Genre();
         try {
+            resultSet = movieRepository.getMovieById(id);
             if(resultSet.next()) {
                 movie.setTitle(resultSet.getString("title"));
                 movie.setDescription(resultSet.getString("description"));
@@ -72,44 +83,41 @@ public class MovieService {
                 genre.setName(resultSet.getString("genre"));
                 movie.setGenre(genre);
             }
-            return movie;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return movie;
     }
 
     public List<Genre> getGenres() {
-        resultSet = movieRepository.getGenres();
         List<Genre> genres = new ArrayList<>();
         try {
+            resultSet = movieRepository.getGenres();
             while (resultSet.next()) {
                 Genre genre = new Genre();
                 genre.setName(resultSet.getString("genre"));
                 genre.setId(resultSet.getInt("id"));
                 genres.add(genre);
             }
-            return genres;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return genres;
     }
 
     public List<Movie> getMovieTitles() {
-        resultSet = movieRepository.getMovieTitles();
         List<Movie> movies = new ArrayList<>();
         try {
+            resultSet = movieRepository.getMovieTitles();
             while (resultSet.next()) {
                 Movie movie = new Movie();
                 movie.setId(resultSet.getInt("id"));
                 movie.setTitle(resultSet.getString("title"));
                 movies.add(movie);
             }
-            return movies;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return movies;
     }
 }
