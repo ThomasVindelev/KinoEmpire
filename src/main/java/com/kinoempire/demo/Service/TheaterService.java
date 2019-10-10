@@ -41,7 +41,10 @@ public class TheaterService {
 
         try {
             resultSet = theaterRepository.getTheaterById(id);
-            int rows = resultSet.getInt("rows");
+            int rows = 0;
+            while(resultSet.next()) {
+                rows = resultSet.getInt("rows");
+            }
 
             for(int i = 0; i < rows; i++) {
                 rowsList.add(i);
@@ -57,7 +60,10 @@ public class TheaterService {
 
         try {
             resultSet = theaterRepository.getTheaterById(id);
-            int seats = resultSet.getInt("seats");
+            int seats = 0;
+            while(resultSet.next()) {
+                seats = resultSet.getInt("seats");
+            }
 
             for(int i = 0; i < seats; i++) {
                 seatsList.add(i);
