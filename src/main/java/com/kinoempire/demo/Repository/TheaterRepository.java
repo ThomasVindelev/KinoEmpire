@@ -18,4 +18,10 @@ public class TheaterRepository extends Database {
         return preparedStatement.executeQuery();
     }
 
+    public ResultSet getTheaterById(int id) throws SQLException {
+        query = "SELECT * FROM theater WHERE id = " + id;
+        preparedStatement = getConnection().prepareStatement(query);
+        return preparedStatement.executeQuery();
+    }
+
 }

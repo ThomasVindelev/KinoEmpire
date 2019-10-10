@@ -19,10 +19,10 @@ public class TheaterService {
         this.theaterRepository = theaterRepository;
     }
 
-    public Object getTheater() {
+    public List<Theater> getTheater() {
+        List<Theater> theaters = new ArrayList<>();
         try {
             resultSet = theaterRepository.getTheater();
-            List<Theater> theaters = new ArrayList<>();
             while (resultSet.next()) {
                 Theater theater = new Theater();
                 theater.setId(resultSet.getInt("id"));
@@ -30,10 +30,41 @@ public class TheaterService {
                 theater.setSeats(resultSet.getInt("seats"));
                 theaters.add(theater);
             }
-            return theaters;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return theaters;
+    }
+
+    public List<Integer> getTheaterRowsById(int id) {
+        List<Integer> rowsList = new ArrayList<>();
+
+        try {
+            resultSet = theaterRepository.getTheaterById(id);
+            int rows = resultSet.getInt("rows");
+
+            for(int i = 0; i < rows; i++) {
+                rowsList.add(i);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowsList;
+    }
+
+    public List<Integer> getTheaterSeatsById(int id) {
+        List<Integer> seatsList = new ArrayList<>();
+
+        try {
+            resultSet = theaterRepository.getTheaterById(id);
+            int seats = resultSet.getInt("seats");
+
+            for(int i = 0; i < seats; i++) {
+                seatsList.add(i);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return seatsList;
     }
 }

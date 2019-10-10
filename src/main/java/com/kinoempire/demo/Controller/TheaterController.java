@@ -19,4 +19,14 @@ public class TheaterController {
         return theaterService.getTheater();
     }
 
+    @GetMapping("/theaterRows/{id}")
+    public Object getTheaterRowsById(@PathVariable("id") int id) {
+        return theaterService.getTheaterRowsById(id);
+    }
+
+    @GetMapping("/theaterSeats/{id}")
+    public Object getTheaterSeatsById(@PathVariable("id") int id) {
+        return theaterService.getTheaterSeatsById(id);
+    }
+
 }
