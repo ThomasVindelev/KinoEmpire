@@ -14,7 +14,7 @@ public class MovieRepository extends Database {
     private String query;
 
     public boolean addMovie(Movie movie) {
-        query = "INSERT INTO movie (title, description, length, age_limit, fk_genre) VALUES (?,?,?,?,?)";
+        query = "INSERT INTO movie (title, description, length, age_limit, fk_genre, img_url) VALUES (?,?,?,?,?,?)";
         try {
             preparedStatement = getConnection().prepareStatement(query);
             preparedStatement.setString(1, movie.getTitle());
@@ -22,6 +22,7 @@ public class MovieRepository extends Database {
             preparedStatement.setInt(3, movie.getLength());
             preparedStatement.setInt(4, movie.getAge_limit());
             preparedStatement.setInt(5, movie.getGenreId());
+            preparedStatement.setString(6, movie.getImg_url());
             return preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,7 +58,7 @@ public class MovieRepository extends Database {
     }
 
     public ResultSet getAllMovies() {
-        query = "SELECT movie.id, description, title, length, age_limit, genre FROM movie " +
+        query = "SELECT movie.id, description, title, length, age_limit, img_url, genre FROM movie " +
                 "INNER JOIN genre ON movie.fk_genre = genre.id";
         try {
             preparedStatement = getConnection().prepareStatement(query);
@@ -69,7 +70,7 @@ public class MovieRepository extends Database {
     }
 
     public ResultSet getMovieById(int id) {
-        query = "SELECT title, description, length, age_limit, genre " +
+        query = "SELECT title, description, length, age_limit, img_url, genre " +
                 "INNER JOIN genre ON fk_genre = genre.id WHERE movie.id = ?";
         try {
             preparedStatement = getConnection().prepareStatement(query);

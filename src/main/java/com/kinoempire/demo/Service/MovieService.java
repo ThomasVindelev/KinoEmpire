@@ -43,6 +43,7 @@ public class MovieService {
                 movie.setId(resultSet.getInt("movie.id"));
                 movie.setDescription(resultSet.getString("description"));
                 movie.setAge_limit(resultSet.getInt("age_limit"));
+                movie.setImg_url(resultSet.getString("img_url"));
                 movie.setLength(resultSet.getInt("length"));
                 genre.setName(resultSet.getString("genre"));
                 movie.setGenre(genre);
@@ -64,6 +65,7 @@ public class MovieService {
                 movie.setTitle(resultSet.getString("title"));
                 movie.setDescription(resultSet.getString("description"));
                 movie.setAge_limit(resultSet.getInt("age_limit"));
+                movie.setImg_url(resultSet.getString("img_url"));
                 movie.setLength(resultSet.getInt("length"));
                 genre.setName(resultSet.getString("genre"));
                 movie.setGenre(genre);

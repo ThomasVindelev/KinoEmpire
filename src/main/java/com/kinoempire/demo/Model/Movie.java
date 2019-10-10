@@ -5,6 +5,7 @@ public class Movie {
     private int id;
     private String title;
     private String description;
+    private String img_url;
     private int length;
     private int age_limit;
     private int genreId;
@@ -13,12 +14,13 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(String title, String description, int length, int age_limit) {
+    public Movie(String title, String description, int length, int age_limit, String img_url) {
 
         this.title = title;
         this.description = description;
         this.length = length;
         this.age_limit = age_limit;
+        this.img_url = img_url;
     }
 
     public int getGenreId() {
@@ -76,5 +78,13 @@ public class Movie {
 
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    public String getImg_url() {
+        return img_url;
+    }
+
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
     }
 }
