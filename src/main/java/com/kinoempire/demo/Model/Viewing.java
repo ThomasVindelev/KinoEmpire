@@ -9,8 +9,9 @@ public class Viewing {
     private List<Seat> seating = new ArrayList<>();
     private Movie movie;
     private Theater theater;
-    private java.sql.Date date;
-
+    private int movieId;
+    private int theaterId;
+    private String date;
 
     public Viewing() {
 
@@ -39,16 +40,31 @@ public class Viewing {
     public void setTheater(Theater theater) {
         this.theater = theater;
     }
-
-    public Date getDate() {
-        return date;
-    }
-
     public void setSeating(List<Seat> seating) {
         this.seating = seating;
     }
 
-    public void setDate(java.sql.Date date) {
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
+    public int getTheaterId() {
+        return theaterId;
+    }
+
+    public void setTheaterId(int theaterId) {
+        this.theaterId = theaterId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
         this.date = date;
     }
 }

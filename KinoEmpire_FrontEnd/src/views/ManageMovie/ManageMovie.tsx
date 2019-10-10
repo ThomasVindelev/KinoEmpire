@@ -130,8 +130,6 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
                             <Form.Label>Titel på filmen</Form.Label>
                             <Form.Control type="text" placeholder="Filmtitel" value={this.state.title} onChange={this.onChangeTitle} />
                         </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
                         <Form.Group as={Col} controlId="formGridPassword">
                             <Form.Label>Længde</Form.Label>
                             <Form.Control type="text" placeholder="Længde" value={this.state.length} onChange={this.onChangeLength} />

@@ -8,19 +8,52 @@ interface ManageViewingProps {
 }
 
 interface ManageViewingState {
-    sal: string[];
-    movies: string[];
-    time: string[];
+    sal: any[];
+    movies: any[];
+    time: string;
+    movieInput: string;
+    salInput: string;
 }
 
 class ManageViewing extends React.Component<ManageViewingProps, ManageViewingState> {
 
+    componentDidMount() {
+        this.getInfo();
+    }
+
+    private getInfo = () => {
+        fetch('http://localhost:5000/getMovieTitles')
+        .then(res => res.json())
+        .then(res => this.setState({ movies: res }))
+        .then(() => {
+            fetch('http://localhost:5000/theater')
+            .then(res => res.json())
+            .then(res => this.setState({ sal : res }))
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }
+    
+    private onChangeDate = (e: any) => {
+        this.setState({ time : e.target.value })
+    }
+
+    private onChangeMovie = (e: any) => {
+        this.setState({ movieInput : e.target.value })
+    }
+
+    private onChangeSal = (e: any) => {
+        this.setState({ salInput : e.target.value })
+    }
+
     constructor(props: ManageViewingProps) {
         super(props);
         this.state = {
-            sal: ["Sal 1", "Sal 2"],
-            movies: ["Peter Plys", "Far til Fire"],
-            time: ["09/10-2019 14:15-15:45", "09/10-2019 15:50-17:20", "09/10-2019 17:30-19:00"]
+            sal: [],
+            movies: [],
+            time: '',
+            movieInput: '',
+            salInput: ''
         }
     }
 
@@ -31,31 +64,26 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
                     <Form.Row>
                     <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>Film</Form.Label>
-                            <Form.Control as="select">
+                            <Form.Control as="select" value={this.state.movieInput} onChange={this.onChangeMovie}>
                                 {this.state.movies.map(m => {
-                                    return <option>{m}</option>
+                                    return <option>{m.title}</option>
                                 })}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>Sal</Form.Label>
-                            <Form.Control as="select">
+                            <Form.Control as="select" value={this.state.salInput} onChange={this.onChangeSal}>
                                 {this.state.sal.map(s => {
-                                    return <option>{s}</option>
+                                    return <option>{s.id}</option>
                                 })}
                             </Form.Control>
                         </Form.Group>
                     </Form.Row>
-                    <Form.Row>
-                    <Form.Group as={Col} controlId="formGridState">
-                            <Form.Label>Tidspunkt</Form.Label>
-                            <Form.Control as="select">
-                                {this.state.time.map(t => {
-                                    return <option>{t}</option>
-                                })}
-                            </Form.Control>
-                        </Form.Group>
-                    </Form.Row>
+                    <Form.Group controlId="formGridAddress1">
+                        <Form.Label>Aldersbegrænsning</Form.Label>
+                        <Form.Control type="datetime-local" placeholder="Indsæt dato" value={this.state.time} onChange={this.onChangeDate} />
+                    </Form.Group>
+
                     <Button variant="success" type="submit">
                         Tilføj tidspunkt
   </Button>
