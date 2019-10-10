@@ -10,9 +10,10 @@ interface ManageViewingProps {
 interface ManageViewingState {
     sal: any[];
     movies: any[];
-    time: string;
+    date: string;
     movieInput: string;
     salInput: string;
+    movieId: number;
 }
 
 class ManageViewing extends React.Component<ManageViewingProps, ManageViewingState> {
@@ -33,13 +34,40 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
         })
         .catch(err => console.log(err));
     }
+
+    private addViewing = (e: any) => {
+        e.preventDefault();
+        let data = {
+            movieId: this.state.movieId,
+            theaterId: this.state.salInput,
+            date: this.state.date
+        }
+        console.log(data);
+        fetch(`http://localhost:5000/createViewing`, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        })
+            .then(res => res.json())
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+    }
     
     private onChangeDate = (e: any) => {
-        this.setState({ time : e.target.value })
+        this.setState({ date : e.target.value })
     }
 
-    private onChangeMovie = (e: any) => {
-        this.setState({ movieInput : e.target.value })
+    private onChangeMovieId = (e: any) => {
+        this.state.movies.filter(temp => {
+            if (temp.name === e.target.value) {
+                console.log(temp.id);
+                this.setState({ movieId: temp.id })
+            }
+            this.setState({ movieInput: e.target.value })
+        })
     }
 
     private onChangeSal = (e: any) => {
@@ -51,7 +79,8 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
         this.state = {
             sal: [],
             movies: [],
-            time: '',
+            date: '',
+            movieId: 0,
             movieInput: '',
             salInput: ''
         }
@@ -64,7 +93,7 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
                     <Form.Row>
                     <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>Film</Form.Label>
-                            <Form.Control as="select" value={this.state.movieInput} onChange={this.onChangeMovie}>
+                            <Form.Control as="select" value={this.state.movieInput} onChange={this.onChangeMovieId}>
                                 {this.state.movies.map(m => {
                                     return <option>{m.title}</option>
                                 })}
@@ -81,10 +110,10 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
                     </Form.Row>
                     <Form.Group controlId="formGridAddress1">
                         <Form.Label>Aldersbegrænsning</Form.Label>
-                        <Form.Control type="datetime-local" placeholder="Indsæt dato" value={this.state.time} onChange={this.onChangeDate} />
+                        <Form.Control type="datetime-local" placeholder="Indsæt dato" value={this.state.date} onChange={this.onChangeDate} />
                     </Form.Group>
 
-                    <Button variant="success" type="submit">
+                    <Button variant="success" type="submit" onClick={this.addViewing}>
                         Tilføj tidspunkt
   </Button>
                 </Form>
