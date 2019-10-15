@@ -40,7 +40,7 @@ public class TheaterService {
         List<Integer> rowsList = new ArrayList<>();
 
         try {
-            resultSet = theaterRepository.getTheaterById(id);
+            resultSet = theaterRepository.getTheaterRowsById(id);
             int rows = 0;
             while(resultSet.next()) {
                 rows = resultSet.getInt("rows");
@@ -59,7 +59,7 @@ public class TheaterService {
         List<Integer> seatsList = new ArrayList<>();
 
         try {
-            resultSet = theaterRepository.getTheaterById(id);
+            resultSet = theaterRepository.getTheaterSeatsById(id);
             int seats = 0;
             while(resultSet.next()) {
                 seats = resultSet.getInt("seats");
