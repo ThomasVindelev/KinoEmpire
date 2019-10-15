@@ -46,7 +46,7 @@ public class TheaterService {
                 rows = resultSet.getInt("rows");
             }
 
-            for(int i = 0; i < rows; i++) {
+            for(int i = 1; i <= rows; i++) {
                 rowsList.add(i);
             }
         } catch (SQLException e) {
@@ -65,7 +65,7 @@ public class TheaterService {
                 seats = resultSet.getInt("seats");
             }
 
-            for(int i = 0; i < seats; i++) {
+            for(int i = 1; i <= seats; i++) {
                 seatsList.add(i);
             }
         } catch (SQLException e) {
