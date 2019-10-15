@@ -8,8 +8,10 @@ interface overviewState {
   isLoaded: boolean;
   seatsSelected: any[];
   movie: any;
-  theater: undefined;
+  theater: any;
   date: string;
+  row: any[];
+  seat: any[];
 }
 
 interface Movie {
@@ -37,8 +39,10 @@ export default class Overview extends Component<ComponentProps, overviewState> {
       isLoaded: false,
       seatsSelected: [],
       movie: undefined,
-      theater: undefined,
-      date: ''
+      theater: null,
+      date: '',
+      row: [],
+      seat: []
     };
   }
 
@@ -59,7 +63,21 @@ export default class Overview extends Component<ComponentProps, overviewState> {
         fetch(`http://localhost:5000/getSeats/${this.props.match.params.id}`)
         .then(res => res.json())
         .then(res => this.setState({ 
-          seatsSelected : res.seating,
+          seatsSelected : res.seating
+        }))
+      })
+      .then(() => {
+        fetch(`http://localhost:5000/theaterRows/${this.state.theater.id}`)
+        .then(res => res.json())
+        .then(res => this.setState({ 
+          row : res
+        }))
+      })
+      .then(() => {
+        fetch(`http://localhost:5000/theaterSeats/${this.state.theater.id}`)
+        .then(res => res.json())
+        .then(res => this.setState({ 
+          seat : res,
           isLoaded: true }))
       })
       .catch(err => console.log(err)) 
@@ -70,10 +88,12 @@ export default class Overview extends Component<ComponentProps, overviewState> {
       <div>
         {this.state.isLoaded ? (
           <div>
-            <MovieBox movie={this.state.movie} date={this.state.date} theaterId={0} /> <TicketContainer 
+            <MovieBox movie={this.state.movie} date={this.state.date} theaterId={this.state.theater.id} /> <TicketContainer 
             id={this.props.match.params.id} 
             selected={this.state.seatsSelected}
             theater={this.state.theater}
+            row={this.state.row}
+            seat={this.state.seat}
             />
           </div>
         ) : (

@@ -22,7 +22,7 @@ class CardItem extends Component<Props, State> {
         return (
             <div className="cardItem">
                 <a href={this.props.url}>
-            <Card style={{ width: '18rem', background: "#343a40" }}>
+            <Card style={{ width: '18rem', background: "#343a40", marginRight: "15px" }}>
                 <Card.Body style={{textAlign: 'center'}}>
                     <Card.Title >{this.props.cardTitle}</Card.Title>
                     <Card.Text>

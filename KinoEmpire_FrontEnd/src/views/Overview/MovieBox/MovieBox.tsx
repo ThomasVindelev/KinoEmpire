@@ -4,7 +4,7 @@ import "./MovieBox.css";
 interface MovieBoxProps {
   movie: Movie;
   date: string;
-  theaterId: number;
+  theaterId: any;
 }
 
  interface Movie {

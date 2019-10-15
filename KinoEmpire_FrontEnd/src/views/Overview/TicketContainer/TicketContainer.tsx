@@ -5,8 +5,6 @@ import Card from "react-bootstrap/Card";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 
 interface ticketState {
-  seat: number[];
-  row: number[];
   ticketPrice: number;
   tickets: number;
   totalAmount: number;
@@ -17,6 +15,8 @@ interface ticketProps {
   selected: any[];
   id: string;
   theater: undefined;
+  row: any[],
+  seat: any[]
 }
 
 class TicketContainer extends Component<ticketProps, ticketState> {
@@ -24,34 +24,6 @@ class TicketContainer extends Component<ticketProps, ticketState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      seat: [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25
-      ],
-      row: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       tickets: 0,
       totalAmount: 0,
       allSelected: [],
@@ -154,10 +126,10 @@ class TicketContainer extends Component<ticketProps, ticketState> {
           </Card>
         </div>
         <div className="seats">
-          {this.state.seat.map((seat, index) => {
+          {this.props.row.map((row, index) => {
             return (
               <div className="seat" key={index}>
-                {this.state.row.map((row, index) => {
+                {this.props.seat.map((seat, index) => {
                   let bgColor =
                     this.state.allSelected.filter(
                       temp => temp.seat === seat && temp.row === row
