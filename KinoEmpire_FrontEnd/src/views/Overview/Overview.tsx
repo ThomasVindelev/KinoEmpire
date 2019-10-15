@@ -83,6 +83,14 @@ export default class Overview extends Component<ComponentProps, overviewState> {
       .catch(err => console.log(err)) 
   }
 
+  private reRenderSeats = () => {
+    fetch(`http://localhost:5000/getSeats/${this.props.match.params.id}`)
+        .then(res => res.json())
+        .then(res => this.setState({ 
+          seatsSelected : res.seating
+        }))
+  }
+
   render() {
     return (
       <div>
@@ -94,6 +102,7 @@ export default class Overview extends Component<ComponentProps, overviewState> {
             theater={this.state.theater}
             row={this.state.row}
             seat={this.state.seat}
+            rerender={this.reRenderSeats}
             />
           </div>
         ) : (
