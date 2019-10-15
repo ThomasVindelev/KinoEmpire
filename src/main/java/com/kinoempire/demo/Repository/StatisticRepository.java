@@ -12,10 +12,10 @@ public class StatisticRepository extends Database {
     private PreparedStatement preparedStatement;
     private String query;
 
-    public ResultSet getSoldSeats(int viewingId) throws SQLException {
-        query = "SELECT id FROM seating WHERE fk_viewing = ?";
+    public ResultSet getSoldSeats() throws SQLException {
+        query = "SELECT COUNT(id) FROM seating";
         preparedStatement = getConnection().prepareStatement(query);
-        preparedStatement.setInt(1, viewingId);
         return preparedStatement.executeQuery();
     }
+
 }

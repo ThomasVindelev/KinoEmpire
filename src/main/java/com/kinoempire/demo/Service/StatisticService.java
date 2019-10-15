@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class StatisticService {
@@ -17,12 +19,12 @@ public class StatisticService {
     }
 
 
-    public int getSoldSeats(int viewingId) {
-        int soldSeats = 0;
+    public Integer getSoldSeats() {
+        Integer soldSeats = 0;
         try {
-            resultSet = statisticRepository.getSoldSeats(viewingId);
+            resultSet = statisticRepository.getSoldSeats();
             while (resultSet.next()) {
-                soldSeats++;
+                soldSeats = resultSet.getInt("COUNT(id)");
             }
         } catch (SQLException e) {
             e.printStackTrace();

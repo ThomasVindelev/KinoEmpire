@@ -4,8 +4,9 @@ import com.kinoempire.demo.Service.StatisticService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class StatisticController {
 
     private final StatisticService statisticService;
@@ -14,9 +15,9 @@ public class StatisticController {
         this.statisticService = statisticService;
     }
 
-    @GetMapping("/getSoldSeats/{id}")
-    public Object getSoldSeats(@PathVariable("id") int viewingId) {
-        return statisticService.getSoldSeats(viewingId);
+    @GetMapping("/getSoldSeats")
+    public Object getSoldSeats() {
+        return statisticService.getSoldSeats();
     }
 
 }
