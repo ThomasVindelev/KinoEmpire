@@ -16,7 +16,8 @@ interface ticketProps {
   id: string;
   theater: undefined;
   row: any[],
-  seat: any[]
+  seat: any[],
+  rerender: () => void
 }
 
 class TicketContainer extends Component<ticketProps, ticketState> {
@@ -40,6 +41,9 @@ class TicketContainer extends Component<ticketProps, ticketState> {
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(this.state.allSelected) // body data type must match "Content-Type" header
+        })
+        .then(() => {
+          this.props.rerender();
         })
   }
 

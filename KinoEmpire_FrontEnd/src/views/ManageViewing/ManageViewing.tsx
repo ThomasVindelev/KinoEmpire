@@ -122,7 +122,7 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
                     </Form.Group>
 
                     <Button variant="success" type="submit" onClick={this.addViewing}>
-                        Tilføj tidspunkt
+                        Opret forestilling
   </Button>
                 </Form>
                 {this.state.viewingAdded ? <Notification title="Det lykkedes!" message="Forestillingen er nu blevet tilføjet" /> : null}
