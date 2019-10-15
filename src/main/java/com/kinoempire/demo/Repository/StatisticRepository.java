@@ -18,4 +18,9 @@ public class StatisticRepository extends Database {
         return preparedStatement.executeQuery();
     }
 
+    public ResultSet getViewingCount() throws SQLException {
+        query = "SELECT COUNT(id) FROM viewing";
+        preparedStatement = getConnection().prepareStatement(query);
+        return preparedStatement.executeQuery();
+    }
 }

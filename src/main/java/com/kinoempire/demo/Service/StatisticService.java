@@ -31,4 +31,17 @@ public class StatisticService {
         }
         return soldSeats;
     }
+
+    public Integer getViewingCount() {
+        Integer viewings = 0;
+        try {
+            resultSet = statisticRepository.getViewingCount();
+            while (resultSet.next()) {
+                viewings = resultSet.getInt("COUNT(id)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return viewings;
+    }
 }
