@@ -7,7 +7,12 @@ interface NotificationState {
     message: any;
 }
 
-class Notification extends React.Component<{}, NotificationState> {
+interface NotificationProps {
+    title: string;
+    message: string;
+}
+
+class Notification extends React.Component<NotificationProps, NotificationState> {
 
     render() {
         return (
@@ -24,8 +29,8 @@ class Notification extends React.Component<{}, NotificationState> {
                         zIndex: 9999,
                         background: '#343a40'
                       }}
-                    title="Film tilføjet!"
-                    message="Din film er nu blevet tilføjet!"
+                    title={this.props.title}
+                    message={this.props.message}
                     text="Lige nu"
                 />
             </div>

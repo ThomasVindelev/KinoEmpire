@@ -7,6 +7,7 @@ import Container from "./Component/Container";
 import ManageMovie from "./views/ManageMovie/ManageMovie";
 import ManageViewing from "./views/ManageViewing/ManageViewing";
 import Home from "./views/Home/Home";
+import Stats from "./views/Stats/Stats";
 
 class App extends React.Component {
   render() {
@@ -20,6 +21,7 @@ class App extends React.Component {
               <Route path="/viewing/:id" component={Overview} />
               <Route path="/movie" component={ManageMovie} />
               <Route exact path="/viewing" component={ManageViewing} />
+              <Route exact path="/stats" component={Stats} />
             </Container>
           </Switch>
         </BrowserRouter>

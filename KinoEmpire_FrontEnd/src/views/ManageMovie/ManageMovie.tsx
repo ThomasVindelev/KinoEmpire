@@ -3,11 +3,10 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-import Overlay from "react-bootstrap/Overlay";
-import Tooltip from "react-bootstrap/Tooltip";
 import './ManageMovie.css';
 import Notification from '../../Component/Notification/Notification';
 import Modal from '../../Component/Modal';
+import { Redirect } from 'react-router';
 
 interface ManageMovieProps {
 
@@ -41,7 +40,7 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
         fetch(`http://localhost:5000/getGenres`)
             .then(res => res.json())
             .then(res => this.setState({ genres: res }))
-            .then(res => {
+            .then(() => {
                 fetch(`http://localhost:5000/movies`)
                     .then(res => res.json())
                     .then(res => this.setState({ movies: res }));
@@ -116,8 +115,10 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
             body: JSON.stringify(data) // body data type must match "Content-Type" header
         })
             .then(res => res.json())
-            .then(res => {
-
+            .then(() => {
+                fetch(`http://localhost:5000/movies`)
+                    .then(res => res.json())
+                    .then(res => this.setState({ movies: res }));
             })
             .catch(err => console.log(err));
     }
@@ -279,7 +280,7 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
                         })}
                     </tbody>
                 </Table>
-                {this.state.movieAdded ? <Notification /> : null}
+                {this.state.movieAdded ? <Notification title="Det lykkedes!" message="Filmen er nu blevet tilføjet" /> : null}
                 {this.state.viewings ? <Modal toggle={this.toggleViewings} modalProps={this.state.modalProps}/> : null}
             </div>
 

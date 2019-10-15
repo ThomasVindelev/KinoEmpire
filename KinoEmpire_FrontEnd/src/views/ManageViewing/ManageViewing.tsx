@@ -2,10 +2,9 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from "react-bootstrap/Col";
+import Notification from '../../Component/Notification/Notification';
 
-interface ManageViewingProps {
-
-}
+interface ManageViewingProps {}
 
 interface ManageViewingState {
     sal: any[];
@@ -15,6 +14,7 @@ interface ManageViewingState {
     salInput: string;
     salId: string;
     movieId: string;
+    viewingAdded: boolean;
 }
 
 class ManageViewing extends React.Component<ManageViewingProps, ManageViewingState> {
@@ -43,17 +43,18 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
             theaterId: this.state.salId,
             date: this.state.date
         }
-        console.log(JSON.stringify(data));
+        
         fetch(`http://localhost:5000/createViewing`, {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: JSON.stringify(data) // body data type must match "Content-Type" header
+            body: JSON.stringify(data)
         })
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => {
+                this.setState({ viewingAdded: true })
+            })
             .catch(err => console.log(err));
     }
     
@@ -88,7 +89,8 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
             date: '',
             movieId: '',
             movieInput: '',
-            salInput: ''
+            salInput: '',
+            viewingAdded: false
         }
     }
 
@@ -107,7 +109,7 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>Sal</Form.Label>
-                            <Form.Control as="select" value={this.state.salInput} onChange={this.onChangeSal}>
+                            <Form.Control as="select" value={this.state.salId} onChange={this.onChangeSal}>
                                 {this.state.sal.map(s => {
                                     return <option>{s.id}</option>
                                 })}
@@ -123,6 +125,7 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
                         Tilføj tidspunkt
   </Button>
                 </Form>
+                {this.state.viewingAdded ? <Notification title="Det lykkedes!" message="Forestillingen er nu blevet tilføjet" /> : null}
             </div>
         )
     }

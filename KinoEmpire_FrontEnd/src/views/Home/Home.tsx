@@ -19,6 +19,7 @@ class Home extends Component<Props, State> {
             <div className="Cards">
                 <CardItem cardTitle={'Film'} url={'/movie'} favicon={'fas fa-film'} />
                 <CardItem cardTitle={'Forestilling'} url={'/viewing'} favicon={'fas fa-ticket-alt'} />
+                <CardItem cardTitle={'Statistik'} url={'/stats'} favicon={'fas fa-chart-line'} />
             </div>
         )
     }
