@@ -4,7 +4,6 @@ import com.kinoempire.demo.Model.Seat;
 import com.kinoempire.demo.Model.Viewing;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.View;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
