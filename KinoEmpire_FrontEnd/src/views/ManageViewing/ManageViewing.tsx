@@ -117,7 +117,7 @@ class ManageViewing extends React.Component<ManageViewingProps, ManageViewingSta
                         </Form.Group>
                     </Form.Row>
                     <Form.Group controlId="formGridAddress1">
-                        <Form.Label>Aldersbegrænsning</Form.Label>
+                        <Form.Label>Dato og tidspunkt</Form.Label>
                         <Form.Control type="datetime-local" placeholder="Indsæt dato" value={this.state.date} onChange={this.onChangeDate} />
                     </Form.Group>
 

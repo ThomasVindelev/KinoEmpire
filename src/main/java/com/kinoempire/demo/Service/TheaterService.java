@@ -40,7 +40,7 @@ public class TheaterService {
         List<Integer> rowsList = new ArrayList<>();
 
         try {
-            resultSet = theaterRepository.getTheaterById(id);
+            resultSet = theaterRepository.getTheaterRowsById(id);
             int rows = 0;
             while(resultSet.next()) {
                 rows = resultSet.getInt("rows");
@@ -49,6 +49,7 @@ public class TheaterService {
             for(int i = 1; i <= rows; i++) {
                 rowsList.add(i);
             }
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,15 +60,16 @@ public class TheaterService {
         List<Integer> seatsList = new ArrayList<>();
 
         try {
-            resultSet = theaterRepository.getTheaterById(id);
+            resultSet = theaterRepository.getTheaterSeatsById(id);
             int seats = 0;
             while(resultSet.next()) {
-                seats = resultSet.getInt("seats");
+                    seats = resultSet.getInt("seats");
             }
 
             for(int i = 1; i <= seats; i++) {
                 seatsList.add(i);
             }
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

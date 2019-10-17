@@ -7,6 +7,7 @@ import './ManageMovie.css';
 import Notification from '../../Component/Notification/Notification';
 import Modal from '../../Component/Modal';
 import { Redirect } from 'react-router';
+import Spinner from 'react-bootstrap/Spinner';
 
 interface ManageMovieProps {
 
@@ -28,6 +29,7 @@ interface ManageMovieState {
     edit: boolean;
     modalProps: any;
     open: boolean;
+    loaded: boolean;
 }
 
 class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
@@ -43,7 +45,7 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
             .then(() => {
                 fetch(`http://localhost:5000/movies`)
                     .then(res => res.json())
-                    .then(res => this.setState({ movies: res }));
+                    .then(res => this.setState({ movies: res, loaded: true }));
             });
     }
 
@@ -64,7 +66,8 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
             edit: false,
             modalProps: null,
             open: false,
-            viewings: false
+            viewings: false,
+            loaded: false
         }
     }
 
@@ -230,56 +233,65 @@ class ManageMovie extends React.Component<ManageMovieProps, ManageMovieState> {
 
                 </Form>
                 <br />
-                <Table striped bordered hover variant="dark">
+                {this.state.loaded ? <Table striped bordered hover variant="dark">
 
-                    <thead>
-                        <tr>
-                            <th>Titel</th>
-                            <th>Varighed</th>
-                            <th>Alder</th>
-                            <th>Genre</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.movies.map((m, index) => {
-                            return (
-                                <tr key={m.id}>
-                                    <td onClick={() => this.setState({ open: true })}>{m.title}</td>
-                                    <td>{m.length}</td>
-                                    <td>{m.age_limit}</td>
-                                    <td>{m.genre.name}</td>
-                                    <td className="editDelete">
-                                    <Button style={{ width: '45%' }} key={index} variant="success" type="submit" onClick={(e: any) => this.toggleViewings(m)
-                                        }
-                                        >Forestillinger</Button>
-                                        <Button style={{ width: '30%' }} key={index} variant="primary" type="submit" onClick={(e: any) => this.toggleModal(m)
-                                        }
-                                        >Rediger</Button>
-                                        <Button key={index} variant="danger" type="submit" onClick={(e: any) => {
-                                            e.preventDefault();
-                                            console.log(m.id);
-                                            fetch(`http://localhost:5000/deleteMovie/${m.id}`, {
-                                                method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
-                                                headers: {
-                                                    'Content-Type': 'application/json'
-                                                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                                                }
-                                            })
-                                                .then(res => res.json())
-                                                .then(res => {
-                                                    let tempArray = this.state.movies.filter(movie => movie.id !== m.id);
-                                                    this.setState({ movies: tempArray })
-                                                })
-                                                .catch(err => console.log(err));
-                                        }}>
-                                            Slet
-                                        </Button></td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </Table>
+<thead>
+    <tr>
+        <th>Titel</th>
+        <th>Varighed</th>
+        <th>Alder</th>
+        <th>Genre</th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+    {this.state.movies.map((m, index) => {
+        return (
+            <tr key={m.id}>
+                <td onClick={() => this.setState({ open: true })}>{m.title}</td>
+                <td>{m.length}</td>
+                <td>{m.age_limit}</td>
+                <td>{m.genre.name}</td>
+                <td className="editDelete">
+                <Button style={{ width: '45%' }} key={index} variant="success" type="submit" onClick={(e: any) => this.toggleViewings(m)
+                    }
+                    >Forestillinger</Button>
+                    <Button style={{ width: '30%' }} key={index} variant="primary" type="submit" onClick={(e: any) => this.toggleModal(m)
+                    }
+                    >Rediger</Button>
+                    <Button key={index} variant="danger" type="submit" onClick={(e: any) => {
+                        e.preventDefault();
+                        console.log(m.id);
+                        fetch(`http://localhost:5000/deleteMovie/${m.id}`, {
+                            method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+                            headers: {
+                                'Content-Type': 'application/json'
+                                // 'Content-Type': 'application/x-www-form-urlencoded',
+                            }
+                        })
+                            .then(res => res.json())
+                            .then(res => {
+                                let tempArray = this.state.movies.filter(movie => movie.id !== m.id);
+                                this.setState({ movies: tempArray })
+                            })
+                            .catch(err => console.log(err));
+                    }}>
+                        Slet
+                    </Button></td>
+            </tr>
+        );
+    })}
+</tbody>
+</Table> : <Spinner
+            animation="grow"
+            style={{
+              display: "block",
+              position: "fixed",
+              top: "80%",
+              right: "50%"
+            }}
+          />}
+            
                 {this.state.movieAdded ? <Notification title="Det lykkedes!" message="Filmen er nu blevet tilføjet" /> : null}
                 {this.state.viewings ? <Modal toggle={this.toggleViewings} modalProps={this.state.modalProps}/> : null}
             </div>

@@ -9,15 +9,14 @@ interface ticketState {
   tickets: number;
   totalAmount: number;
   allSelected: any[];
+  seat: any[];
+  row: any[];
 }
 
 interface ticketProps {
   selected: any[];
   id: string;
-  theater: undefined;
-  row: any[],
-  seat: any[],
-  rerender: () => void
+  theater: any;
 }
 
 class TicketContainer extends Component<ticketProps, ticketState> {
@@ -28,8 +27,36 @@ class TicketContainer extends Component<ticketProps, ticketState> {
       tickets: 0,
       totalAmount: 0,
       allSelected: [],
-      ticketPrice: 115
+      ticketPrice: 115,
+      seat: [],
+      row: []
     };
+  }
+
+  componentDidMount() {
+    let seatArray = [];
+    let rowArray = [];
+
+    let row = 0;
+    let seat = 0;
+
+    if(this.props.theater.id === 1) {
+      row = 12;
+      seat = 20;
+    } else {
+      row = 16;
+      seat = 25;
+    }
+
+    for(let i = 1;i<=row;i++) {
+      rowArray[i] = i;
+    }
+    for(let i = 1;i<=seat;i++) {
+      seatArray[i] = i;
+    }
+
+    this.setState({ seat: seatArray, row: rowArray })
+
   }
 
   private handleSubmit = (e: any) => {
@@ -43,7 +70,7 @@ class TicketContainer extends Component<ticketProps, ticketState> {
             body: JSON.stringify(this.state.allSelected) // body data type must match "Content-Type" header
         })
         .then(() => {
-          this.props.rerender();
+         
         })
   }
 
@@ -130,10 +157,10 @@ class TicketContainer extends Component<ticketProps, ticketState> {
           </Card>
         </div>
         <div className="seats">
-          {this.props.row.map((row, index) => {
+          {this.state.seat.map((seat, index) => {
             return (
               <div className="seat" key={index}>
-                {this.props.seat.map((seat, index) => {
+                {this.state.row.map((row, index) => {
                   let bgColor =
                     this.state.allSelected.filter(
                       temp => temp.seat === seat && temp.row === row
