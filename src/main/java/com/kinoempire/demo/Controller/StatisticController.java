@@ -4,6 +4,8 @@ import com.kinoempire.demo.Service.StatisticService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.SQLException;
+
 @RestController
 public class StatisticController {
 
@@ -21,6 +23,13 @@ public class StatisticController {
     @GetMapping("/getViewingCount")
     public Object getViewingCount() {
         return statisticService.getViewingCount();
+    }
+
+    // ALT HERUNDER ER TESTING AF TID
+
+    @GetMapping("/getTime")
+    public Object getTime() throws SQLException {
+        return statisticService.getTime();
     }
 
 }
