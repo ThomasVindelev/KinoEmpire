@@ -49,6 +49,7 @@ public class TheaterService {
             for(int i = 1; i <= rows; i++) {
                 rowsList.add(i);
             }
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,12 +63,13 @@ public class TheaterService {
             resultSet = theaterRepository.getTheaterSeatsById(id);
             int seats = 0;
             while(resultSet.next()) {
-                seats = resultSet.getInt("seats");
+                    seats = resultSet.getInt("seats");
             }
 
             for(int i = 1; i <= seats; i++) {
                 seatsList.add(i);
             }
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
