@@ -55,7 +55,7 @@ public class StatisticService {
     private LocalDateTime localDateFrom = LocalDateTime.of(2019, month, 11, 10, 10, 00);
     private LocalDateTime localDateTo = LocalDateTime.of(2019, month, 12, 23, 10, 00);
 
-    public List<String> getTime() throws SQLException {
+    public List<LocalDateTime> getTime() throws SQLException {
         ZoneId zoneId = ZoneId.of("Europe/London");
         LocalDate localDate = LocalDate.now(zoneId);
         LocalTime localTime = LocalTime.now();
@@ -63,17 +63,17 @@ public class StatisticService {
         ResultSet resultSet = statisticRepository.getTime(
                 Timestamp.valueOf(localDateFrom),
                 Timestamp.valueOf(localDateTo));
-        List<String> strings = new ArrayList<>();
+        List<LocalDateTime> times = new ArrayList<>();
         while (resultSet.next()) {
-            String test = new String();
-            test = "Hejsa";
-            strings.add(test);
+            LocalDateTime localTime1 = resultSet.getTimestamp("time").toLocalDateTime();
+            System.out.println(localTime1);
+            times.add(localTime1);
         }
         localTime = localDateTime.toLocalTime();
         System.out.println(localTime);
         System.out.println(localTime.isAfter(localTimeToCompare));
         System.out.println(localTime.isBefore(localTimeToCompare));
-        return strings;
+        return times;
     }
 
 }

@@ -26,7 +26,7 @@ public class StatisticRepository extends Database {
     // ALT HERUNDER ER TESTING AF TID
 
     public ResultSet getTime(Timestamp from, Timestamp to) throws SQLException {
-        query = "SELECT id FROM viewing WHERE time BETWEEN ? AND ?";
+        query = "SELECT time FROM viewing WHERE time BETWEEN ? AND ?";
         preparedStatement = getConnection().prepareStatement(query);
         preparedStatement.setTimestamp(1, from);
         preparedStatement.setTimestamp(2, to);
